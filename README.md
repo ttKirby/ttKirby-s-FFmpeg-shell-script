@@ -1,2 +1,2 @@
 # FFmpeg-shell-script
-A shell script for some FFmpeg functions.
+A relatively narrow shell script which uses FFmpeg to process its media.
