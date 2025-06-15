@@ -60,7 +60,7 @@ Subtitle files must have the same name as the video.
 ```
 
 [2] Transcoding with Auto-Audio  
-- Same as [1], but here you can adjust the audio bitrate:
+– Same as in [1], except that you need to adjust the audio here:
 
 	`auto_bit_2="224"`  
 	`auto_bit_6="448"`
