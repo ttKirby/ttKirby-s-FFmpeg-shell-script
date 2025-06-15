@@ -1,41 +1,40 @@
-# FFmpeg-Shell-Skript
+# FFmpeg Shell Script
 
-Ein einfaches Shell-Skript zur Stapelverarbeitung von Videodateien mit FFmpeg.  
-Das Skript durchsucht den aktuellen Ordner nach `.mkv`, `.mp4` und `.avi`-Dateien und bietet grundlegende Funktionen zur Umwandlung und Behandlung von Untertiteln.
+A simple shell script for batch processing video files with FFmpeg.  
+The script scans the current folder for `.mkv`, `.mp4`, and `.avi` files and provides basic functions for converting videos and handling subtitles.
 
+## Features
 
-## Funktionen
+- Automatically process videos in a folder  
+- Support for external subtitle files (`.srt`, `.ass`)  
+- Automatically detects audio streams in video files and applies suitable presets based on the number and characteristics of audio tracks (e.g., stereo vs. multichannel, single vs. multiple tracks)  
+- Option to remove subtitles  
+- Simple templates for specific FFmpeg configurations  
+- Many comments and echo statements in the script that explain step-by-step what happens where and how the individual functions work.
 
-- Videos in einem Ordner automatisch verarbeiten
-- Unterstützung für externe Untertiteldateien (`.srt`, `.ass`)
-- Erkennt automatisch Audiostreams in Videodateien. Wendet passende Voreinstellungen basierend auf Anzahl und Eigenschaften der Audiotracks an (z. B. Stereo vs. Mehrkanal, einzelne vs. mehrere Spuren)
-- Möglichkeit zum Entfernen von Untertiteln
-- Einfache Vorlagen für bestimmte FFmpeg-Konfigurationen
-- Viele Kommentare und Echos im Skript, die Schritt für Schritt erklären, was wo passiert und wie die einzelnen Funktionen arbeiten.
+## How it works
 
-## Funktionsweise
+The script uses a few variables and arrays, lists all videos in the folder, and then asks what should be done with them.
 
-Das Skript arbeitet mit ein paar Variablen und Arrays, listet alle Videos im Ordner auf und fragt dann, was damit passieren soll.
+### Supported video formats
 
-### Unterstützte Videoformate
-
-- `.mkv`
-- `.mp4`
+- `.mkv`  
+- `.mp4`  
 - `.avi`
 
-## Voraussetzungen
+## Requirements
 
-- FFmpeg muss installiert und im Terminal/Commandline aufrufbar sein (Umgebungsvariablen müssen eventuell gesetzt werden)
+- FFmpeg must be installed and callable from the terminal/command line (environment variables may need to be set)  
 - Git (https://git-scm.com/downloads)
 
-## Verwendung
+## Usage
 
-Das Skript zeigt dir eine Auswahl an Optionen im Terminal.
+The script shows you a selection of options in the terminal.
 
-## Ordnerstruktur
+## Folder structure
 
-Das Skript muss im gleichen Ordner liegen wie die zu bearbeitenden Videos.  
-Untertiteldateien sollten den gleichen Namen wie das Video haben.
+The script must be in the same folder as the videos to be processed.  
+Subtitle files should have the same name as the video.
 
 ```
 /MyFolder
@@ -46,6 +45,6 @@ Untertiteldateien sollten den gleichen Namen wie das Video haben.
   ├── !FFMPEG beta1.sh
 ```
 
-## Lizenz
+## License
 
-MIT – frei verwendbar, veränderbar und teilbar.
+MIT – free to use, modify, and share.
