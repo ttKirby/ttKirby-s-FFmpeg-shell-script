@@ -27,9 +27,9 @@ The script shows you a menu with a list of options.
 
 [2] Transcode with Auto-Audio  
 - Works with fixed values for video and subtitles. Detects audio channels and bitrates using FFprobe and reacts with predefined values.  
-- e.g., 2 channels = 224k and 6 channels = 448k  
+- e.g. `2 channels = 224k` and `6 channels = 448k  `
 - You should adjust these for your own needs if necessary!  
-- Note: It can handle both CBR and VBR, but only reads CBR. For VBR, it uses predefined values.
+- Note: It can handle both `CBR` and `VBR`, but only reads `CBR`. For `VBR`, it uses predefined values.
 
 [3] Apply Templates  
 - Uses predefined templates for special use cases
@@ -38,7 +38,7 @@ The script shows you a menu with a list of options.
 - Simply removes all subtitles; video and audio are copied, metadata remains untouched.
 
 [5] Exit (CTRL+C)  
-- Exits the script. You can also press CTRL+C at any time to exit the script.
+- Exits the script. You can also press `CTRL+C` at any time to exit the script.
 
 ## Customization
 
@@ -63,8 +63,9 @@ Subtitle files must have the same name as the video.
 [2] Transcode with Auto-Audio  
 - Same as [1], except you must adjust the audio here:
 
-    auto_bit_2="224"  
-    auto_bit_6="448"
+   ` auto_bit_2="224"`
+  
+    `auto_bit_6="448"`
 
 [3] Templates  
 - A few examples are provided, use them as a reference.  
@@ -86,7 +87,7 @@ Subtitle files must have the same name as the video.
 - Just uses `-map 0:v -map 0:a -c:v copy -c:a copy`, copying all video and audio streams, nothing more.
 
 [5] Exit  
-- Self-explanatory. Press 5 and confirm with Enter. Or press CTRL+C once.
+- Self-explanatory. Press 5 and confirm with Enter. Or press `CTRL+C` once.
 
 ## Requirements, Recommendations and Notes
 
