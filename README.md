@@ -75,7 +75,7 @@ Subtitle files must have the same name as the video.
 -map 0:v		# nutzt Videospur
 -map 0:a		# nutzt Audio
 -map 0:s 		# nutzt Untertitel
--c:v libx265	    # Transkodiert zu h265
+-c:v libx265	# Transkodiert zu h265
 -c:a eac3		# Transkodiert zu E-AC3
 -b:a 224k		# Nimmt eine konstante Audiobitrate (CBR) von 224k
 -ac 2			# 2 Kanal steht für Stereo, 6 wäre für 5.1
