@@ -24,16 +24,21 @@ Das Skript zeigt dir in einem Menu eine Auswahl an Optionen im Terminal an.
 [1] Transkodieren
 - Artbeitet mit festgelegten Werten für Video, Audio und Untertitel.
 - Diese solltest du auch bei Bedarf für dich selbst anpassen!
+
 [2] Transkodieren mit Auto-Audio
 - Arbeitet mit festgelegten Werten für Video und Untertitel. Erkennt Audiokkanäle und -bitrate durch FFprobe und reagiert mit vordefinierten Werten.
 - z.B. 2 Kanal = 224k und 6 Kanal = 448k
 - Diese solltest du auch bei Bedarf für dich selbst anpassen!
+
 [3] Vorlagen anwenden
 - Verwendet Vordefinierte Vorlagen für Spezielle Anwendungsfälle
+
 [4] Untertitel entfernen
 - Entfern stumpf alle Untertitel, Video und Audio wird kopiert und Metadaten werden nicht angefasst.
+
 [5] Beenden  (STRG+C)
 - Beendet das Skript. Man kann auch jederzeit und überall STRG+C drücken um das Skript zu beendet.
+
 
 ## Anpassung 
 
