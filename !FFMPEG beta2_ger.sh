@@ -124,7 +124,7 @@ read -p "Deine Wahl (1/2/3/4/5/6/7): " preset
 echo -e "${RESET}"
 
 	# Eingabevalidierung für die Auswahl
-	if ! [[ "$preset" =~ ^[1-2]$ ]]; then
+	if ! [[ "$preset" =~ ^[1-7]$ ]]; then
 		echo -e "${RED}Ugültige Auswahl! Bitte 1 oder 2 wählen.${RESET}"
 		sleep 1
 		exit 1
