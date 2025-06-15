@@ -1,6 +1,7 @@
 # ttKirby's-FFmpeg-Shell-Script
 
 It is still a work in progress but works so far.
+English script comming soon.
 
 ## Introduction
 
