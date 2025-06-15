@@ -1,54 +1,54 @@
-# ttKirby's FFmpeg-Shell-Script
+# ttKirby's-FFmpeg-Shell-Script
 
-Hier ein einfaches Shell-Skript zur Stapelverarbeitung von Videodateien mit FFmpeg.
-Das Skript durchsucht den aktuellen Ordner nach `.mkv`, `.mp4` und `.avi`-Dateien und bietet ein paar Funktionen zum Behandeln von Untertitel-Dateien.
-Es arbeitet mit ein paar Variablen und Arrays, listet alle Videos im Ordner auf und fragt dann, was damit passieren soll.
-Ich habe nicht viel erfahrung im schreiben von Skripten, aber ich hoffe hier findet sich der ein oder andere der einen Nutzen darin findet.
+A simple shell script for batch processing video files with FFmpeg.  
+The script scans the current folder for `.mkv`, `.mp4`, and `.avi` files and offers a few features for handling subtitle files.  
+It works with some variables and arrays, lists all videos in the folder, and then asks what should be done with them.  
+I don't have much experience writing scripts, but I hope someone finds this useful.
 
-## Funktionen
+## Features
 
-- Videos in einem Ordner automatisch verarbeiten
-- Unterstützung für externe Untertiteldateien (`.srt` und `.ass`)
-- Erkennt automatisch Audiostreams in Videodateien. Wendet passende Voreinstellungen basierend auf Anzahl und Eigenschaften der Audiotracks an (z. B. Stereo vs. Mehrkanal, einzelne vs. mehrere Spuren)
-- Einfache Vorlagen für bestimmte FFmpeg-Konfigurationen
-- Möglichkeit zum Entfernen von Untertiteln
-- Viele Kommentare und Echos im Skript, die erklären wo was passiert, zum besseren nachzuvollziehen und gegebenfalls zur Ergänzung eigener Werte.
+- Automatically process videos in a folder
+- Support for external subtitle files (`.srt` and `.ass`)
+- Automatically detects audio streams in video files. Applies preset values based on the number and characteristics of audio tracks (e.g. stereo vs. multichannel, single vs. multiple tracks)
+- Simple templates for specific FFmpeg configurations
+- Option to remove subtitles
+- Lots of comments and echo statements in the script that explain what's happening, to help you understand and potentially customize things
 
-## Verwendung
+## Usage
 
-Wenn umgebungsvariablen unter Windows gesetzt wurden, einfach doppepklick zum ausführen. 
-Das Skript zeigt dir in einem Menu eine Auswahl an Optionen im Terminal an.
+If environment variables are set under Windows, simply double-click to run.  
+The script will show you a selection menu in the terminal with different options.
 
-## Funktionsweise
+## Functionality
 
-[1] Transkodieren
-- Artbeitet mit festgelegten Werten für Video, Audio und Untertitel.
-- Diese solltest du auch bei Bedarf für dich selbst anpassen!
+[1] Transcoding  
+- Works with predefined values for video, audio, and subtitles.  
+- You should customize these settings to your own needs!
 
-[2] Transkodieren mit Auto-Audio
-- Arbeitet mit festgelegten Werten für Video und Untertitel. Erkennt Audiokkanäle und -bitrate durch FFprobe und reagiert mit vordefinierten Werten.
-- z.B. 2 Kanal = 224k und 6 Kanal = 448k
-- Diese solltest du auch bei Bedarf für dich selbst anpassen!
+[2] Transcoding with Auto-Audio  
+- Uses predefined values for video and subtitles. Detects audio channels and bitrate via FFprobe and reacts with predefined settings.  
+- e.g. 2 channels = 224k and 6 channels = 448k  
+- You should customize these settings to your own needs!
 
-[3] Vorlagen anwenden
-- Verwendet Vordefinierte Vorlagen für Spezielle Anwendungsfälle
+[3] Apply Templates  
+- Uses predefined templates for specific use cases
 
-[4] Untertitel entfernen
-- Entfern stumpf alle Untertitel, Video und Audio wird kopiert und Metadaten werden nicht angefasst.
+[4] Remove Subtitles  
+- Simply removes all subtitles; video and audio are copied, metadata remains untouched.
 
-[5] Beenden  (STRG+C)
-- Beendet das Skript. Man kann auch jederzeit und überall STRG+C drücken um das Skript zu beendet.
+[5] Exit (CTRL+C)  
+- Exits the script. You can also press CTRL+C at any time to quit the script.
 
+## Customization
 
-## Anpassung 
+The script must be in the same folder as the video files you want to process.  
+Subtitle files must have the same name as the video.
 
-Das Skript muss im gleichen Ordner liegen wie die zu bearbeitenden Videos.  
-Untertiteldateien müssen den gleichen Namen wie das Video inne haben.
-
-[1] Transcodieren
-- CRF, Bitrate und Metadaten werden im Skript ganz oben angepasst.
-- Die Reihenfolge der Untertitel ist in der Variable i_files geregelt: ""i_files=(-i "${srt_files[0]}" -i "${srt_files[1]}" -i "${ass_files[0]}")""
-- Empfohlene Struktur und Benennung ist:
+[1] Transcoding  
+- CRF, bitrate, and metadata settings are defined at the top of the script.  
+- The subtitle order is defined in the `i_files` variable:  
+  `i_files=(-i "${srt_files[0]}" -i "${srt_files[1]}" -i "${ass_files[0]}")`  
+- Recommended folder and naming structure:
 
 ```
 /MyFolder
@@ -59,20 +59,21 @@ Untertiteldateien müssen den gleichen Namen wie das Video inne haben.
   ├── video1.FULL.ass
 ```
 
-[2] Transcodieren mit Audo-Audio
-- Das gleiche wie bei [1] nur, das man Audio hier anpassen kann:
-	auto_bit_2="224k"
-	auto_bit_6="448k"
-[3] 
+[2] Transcoding with Auto-Audio  
+- Same as [1], but here you can adjust the audio bitrate:
+  `auto_bit_2="224"`  
+  `auto_bit_6="448"`
+
+[3]  
 - ...
 
-## Voraussetzungen, Empfehlungen und Anmerkungen
+## Requirements, Recommendations, and Notes
 
-- FFmpeg muss installiert sein. Umgebungsvariablen müssen eventuell gesetzt werden.
-- Git (https://git-scm.com/downloads)
-- Zur Bearbeitung unter Windows empfehle ich: https://notepad-plus-plus.org/downloads/
-- Funktioniert theoretisch auch unter Linux und Mac, praktisch habe ich es nur unter Windows getestet!
+- FFmpeg must be installed. Environment variables may need to be set.
+- Git: https://git-scm.com/downloads
+- For editing under Windows, I recommend: https://notepad-plus-plus.org/downloads/
+- Should theoretically also work on Linux and macOS, but I’ve only tested it on Windows!
 
-## Lizenz
+## License
 
-MIT – frei verwendbar, veränderbar und teilbar.
+MIT – free to use, modify, and share.
