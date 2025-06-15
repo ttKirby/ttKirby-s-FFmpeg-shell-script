@@ -20,7 +20,7 @@ Ich habe nicht viel erfahrung im schreiben von Skripten, aber ich hoffe hier fin
 
 ## Verwendung
 
-Wenn umgebungsvariablen unter Windows gesetzt wurden, einfach doppepklick zum ausführen. Sonst über Konsole/Terminal öffnen
+Wenn umgebungsvariablen unter Windows gesetzt wurden, einfach doppelklick zum ausführen. Sonst über Konsole/Terminal öffnen
 Das Skript zeigt dir in einem Menu eine Auswahl an Optionen an.
 
 ## Funktionsweise
