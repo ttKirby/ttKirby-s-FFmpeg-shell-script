@@ -94,7 +94,7 @@ read -p "Deine Wahl (1/2/3/4/5/6/7): " preset
 echo -e "${RESET}"
 
 	# Eingabevalidierung für die Auswahl
-	if ! [[ "$preset" =~ ^[1-7]$ ]]; then
+	if ! [[ "$preset" =~ ^[1-2]$ ]]; then
 		echo -e "${RED}Ugültige Auswahl! Bitte 1 oder 2 wählen.${RESET}"
 		sleep 1
 		exit 1
@@ -158,76 +158,19 @@ do
 		title_audio=()
 		bitrate_audio=()
 
-		# [1] Transkodieren
-		if [[ "$auswahl" == "1" || "$auswahl" == "2" ]]; then
-			if [ ${#srt_files[@]} -eq 0 ] && [ ${#ass_files[@]} -eq 0 ]; then
-				echo -e "${YELLOW}Keine Untertiteldateien gefunden.${RESET}"
+		## Function Execution Variablen
+		# crf="20"
+		# lang_1="ger"
+		# lang_2="ja"
+		# bit_1="224k"
+		# bit_2="448k"
+		# audio_1="stereo"
+		# audio_2="5.1"
+		# title_1="Stereo"
+		# title_2="Full"
+
+		transcode1() {
 				echo ""
-				map_video="-map 0:v -c:v libx265 -crf 20"
-				if [[ "$animation" == "1" ]]; then
-					tune_ani="-tune animation"
-				fi
-				if [[ "$auswahl" == "1" ]]; then
-					map_audio=("-map 0:a:0 -c:a:0 eac3 -b:a:0 224k -filter:a:0 aformat=channel_layouts=stereo 
-								-map 0:a:1 -c:a:1 eac3 -b:a:1 448k -filter:a:1 aformat=channel_layouts=5.1")
-				fi
-				type_sub="-c:s:0 srt"
-			elif [ ${#srt_files[@]} -eq 1 ] && [ ${#ass_files[@]} -eq 0 ]; then
-				echo -e "${YELLOW}Eine Untertiteldateien (1x SRT) gefunden.${RESET}"
-				echo ""
-				i_files=(-i "${srt_files[0]}")
-				map_video="-map 0:v -c:v libx265 -crf 20"
-				if [[ "$animation" == "1" ]]; then
-					tune_ani="-tune animation"
-				fi
-				if [[ "$auswahl" == "1" ]]; then
-					map_audio=("-map 0:a:0 -c:a:0 eac3 -b:a:0 224k -filter:a:0 aformat=channel_layouts=stereo 
-								-map 0:a:1 -c:a:1 eac3 -b:a:1 448k -filter:a:1 aformat=channel_layouts=5.1")
-				fi
-				map_files="-map 1"
-				type_sub="-c:s:0 srt"
-				metadata_a_0="-metadata:s:a:0 language=ger -metadata:s:a:0 title=Stereo -disposition:a:0 default"
-				metadata_s_0="-metadata:s:s:0 language=ger -metadata:s:s:0 title=Full -disposition:s:0 default"
-			elif [ ${#srt_files[@]} -ge 2 ] && [ ${#ass_files[@]} -eq 0 ]; then
-				echo -e "${YELLOW}Zwei Untertiteldateien (2x SRT) gefunden.${RESET}"
-				echo ""
-				i_files=(-i "${srt_files[0]}" -i "${srt_files[1]}")
-				map_video="-map 0:v -c:v libx265 -crf 20"
-				if [[ "$animation" == "1" ]]; then
-					tune_ani="-tune animation"
-				fi
-				if [[ "$auswahl" == "1" ]]; then
-					map_audio=("-map 0:a:0 -c:a:0 eac3 -b:a:0 224k -filter:a:0 aformat=channel_layouts=stereo 
-								-map 0:a:1 -c:a:1 eac3 -b:a:1 448k -filter:a:1 aformat=channel_layouts=5.1")
-				fi
-				map_files="-map 1 -map 2"
-				type_sub="-c:s:0 srt -c:s:1 srt"
-				metadata_a_0="-metadata:s:a:0 language=ger -metadata:s:a:0 title=Stereo -disposition:a:0 default"
-				metadata_a_1="-metadata:s:a:1 language=ja -metadata:s:a:1 title=Stereo -disposition:a:1 -default"
-				metadata_s_0="-metadata:s:s:0 language=ger -metadata:s:s:0 title=Full -disposition:s:0 default"
-				metadata_s_1="-metadata:s:s:1 language=ger -metadata:s:s:1 title=Full -disposition:s:1 -default"
-			elif [ ${#srt_files[@]} -eq 1 ] && [ ${#ass_files[@]} -eq 1 ]; then
-				echo -e "${YELLOW}Zwei Untertiteldateien (1x SRT & 1x ASS) gefunden.${RESET}"
-				echo ""
-				i_files=(-i "${srt_files[0]}" -i "${ass_files[0]}")
-				map_video="-map 0:v -c:v libx265 -crf 20"
-				if [[ "$animation" == "1" ]]; then
-					tune_ani="-tune animation"
-				fi
-				if [[ "$auswahl" == "1" ]]; then
-					map_audio=("-map 0:a:0 -c:a:0 eac3 -b:a:0 224k -filter:a:0 aformat=channel_layouts=stereo 
-								-map 0:a:1 -c:a:1 eac3 -b:a:1 448k -filter:a:1 aformat=channel_layouts=5.1")
-				fi
-				map_files="-map 1 -map 2"
-				type_sub="-c:s:0 srt -c:s:1 ass"
-				metadata_a_0="-metadata:s:a:0 language=ger -metadata:s:a:0 title=Stereo -disposition:a:0 default"
-				metadata_a_1="-metadata:s:a:1 language=ja -metadata:s:a:1 title=Stereo -disposition:a:1 -default"
-				metadata_s_0="-metadata:s:s:0 language=ger -metadata:s:s:0 title=Full -disposition:s:0 default"
-				metadata_s_1="-metadata:s:s:1 language=ger -metadata:s:s:1 title=Full -disposition:s:1 -default"
-			elif [ ${#srt_files[@]} -eq 2 ] && [ ${#ass_files[@]} -eq 1 ]; then
-				echo -e "${YELLOW}Drei Untertiteldateien (2x SRT & 1x ASS) gefunden.${RESET}"
-				echo ""
-				i_files=(-i "${srt_files[0]}" -i "${srt_files[1]}" -i "${ass_files[0]}")
 				map_video="-map 0:v -c:v libx265 -crf 20"
 				if [[ "$animation" == "1" ]]; then
 					tune_ani="-tune animation"
@@ -239,6 +182,71 @@ do
 					map_audio=("-map 0:a:0 -c:a:0 eac3 -b:a:0 224k -filter:a:0 aformat=channel_layouts=stereo 
 								-map 0:a:1 -c:a:1 eac3 -b:a:1 448k -filter:a:1 aformat=channel_layouts=5.1")
 				fi
+		}
+
+		# metadata_a_1() {
+		# }
+		
+		# metadata_a_2() {
+		# }
+
+		# metadata_a_3() {
+		# }
+
+		# metadata_a_4() {
+		# }
+
+
+		# metadata_s_1() {
+		# }
+		
+		# metadata_s_2() {
+		# }
+
+		# metadata_s_3() {
+		# }
+
+		# metadata_s_4() {
+		# }
+
+
+		# [1] Transkodieren
+		if [[ "$auswahl" == "1" || "$auswahl" == "2" ]]; then
+			if [ ${#srt_files[@]} -eq 0 ] && [ ${#ass_files[@]} -eq 0 ]; then
+				echo -e "${YELLOW}Keine Untertiteldateien gefunden.${RESET}"
+				transcode1
+				type_sub="-c:s:0 srt"
+			elif [ ${#srt_files[@]} -eq 1 ] && [ ${#ass_files[@]} -eq 0 ]; then
+				echo -e "${YELLOW}Eine Untertiteldateien (1x SRT) gefunden.${RESET}"
+				transcode1
+				map_files="-map 1"
+				type_sub="-c:s:0 srt"
+				metadata_a_0="-metadata:s:a:0 language=ger -metadata:s:a:0 title=Stereo -disposition:a:0 default"
+				metadata_s_0="-metadata:s:s:0 language=ger -metadata:s:s:0 title=Full -disposition:s:0 default"
+				i_files=(-i "${srt_files[0]}")
+			elif [ ${#srt_files[@]} -ge 2 ] && [ ${#ass_files[@]} -eq 0 ]; then
+				echo -e "${YELLOW}Zwei Untertiteldateien (2x SRT) gefunden.${RESET}"
+				transcode1
+				map_files="-map 1 -map 2"
+				type_sub="-c:s:0 srt -c:s:1 srt"
+				metadata_a_0="-metadata:s:a:0 language=ger -metadata:s:a:0 title=Stereo -disposition:a:0 default"
+				metadata_a_1="-metadata:s:a:1 language=ja -metadata:s:a:1 title=Stereo -disposition:a:1 -default"
+				metadata_s_0="-metadata:s:s:0 language=ger -metadata:s:s:0 title=Full -disposition:s:0 default"
+				metadata_s_1="-metadata:s:s:1 language=ger -metadata:s:s:1 title=Full -disposition:s:1 -default"
+				i_files=(-i "${srt_files[0]}" -i "${srt_files[1]}")
+			elif [ ${#srt_files[@]} -eq 1 ] && [ ${#ass_files[@]} -eq 1 ]; then
+				echo -e "${YELLOW}Zwei Untertiteldateien (1x SRT & 1x ASS) gefunden.${RESET}"
+				transcode1
+				map_files="-map 1 -map 2"
+				type_sub="-c:s:0 srt -c:s:1 ass"
+				metadata_a_0="-metadata:s:a:0 language=ger -metadata:s:a:0 title=Stereo -disposition:a:0 default"
+				metadata_a_1="-metadata:s:a:1 language=ja -metadata:s:a:1 title=Stereo -disposition:a:1 -default"
+				metadata_s_0="-metadata:s:s:0 language=ger -metadata:s:s:0 title=Full -disposition:s:0 default"
+				metadata_s_1="-metadata:s:s:1 language=ger -metadata:s:s:1 title=Full -disposition:s:1 -default"
+				i_files=(-i "${srt_files[0]}" -i "${ass_files[0]}")
+			elif [ ${#srt_files[@]} -eq 2 ] && [ ${#ass_files[@]} -eq 1 ]; then
+				echo -e "${YELLOW}Drei Untertiteldateien (2x SRT & 1x ASS) gefunden.${RESET}"
+				transcode1
 				map_files="-map 1 -map 2 -map 3"
 				type_sub="-c:s:0 srt -c:s:1 srt -c:s:2 ass"
 				metadata_a_0="-metadata:s:a:0 language=ger -metadata:s:a:0 title=Stereo -disposition:a:0 default"
@@ -247,6 +255,7 @@ do
 				metadata_s_0="-metadata:s:s:0 language=ger -metadata:s:s:0 title=Forced -disposition:s:0 default"
 				metadata_s_1="-metadata:s:s:1 language=ger -metadata:s:s:1 title=Full -disposition:s:1 -default"
 				metadata_s_2="-metadata:s:s:2 language=ger -metadata:s:s:2 title=Full -disposition:s:2 -default"
+				i_files=(-i "${srt_files[0]}" -i "${srt_files[1]}" -i "${ass_files[0]}")
 			fi
 		fi
 
