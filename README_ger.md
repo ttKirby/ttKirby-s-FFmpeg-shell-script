@@ -63,6 +63,7 @@ Untertiteldateien müssen den gleichen Namen wie das Video inne haben.
 - Das gleiche wie bei [1] nur, das man Audio hier anpassen muss:
 
 	`auto_bit_2="224"`
+
 	`auto_bit_6="448"`
 
 [3] Vorlagen
