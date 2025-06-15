@@ -27,9 +27,9 @@ Das Skript zeigt dir in einem Menu eine Auswahl an Optionen an.
 
 [2] Transkodieren mit Auto-Audio
 - Arbeitet mit festgelegten Werten für Video und Untertitel. Erkennt Audiokkanäle und -bitraten durch FFprobe und reagiert mit vorher festgelegten Werten.
-- z.B. 2 Kanal = 224k und 6 Kanal = 448k
+- z.B. `2 Kanal = 224k` und `6 Kanal = 448k`
 - Diese solltest du auch bei Bedarf für dich selbst anpassen!
-- Anmerkung: Es kann mit CBR und VBR umgehen, aber nur CBR auslesen. Bei VBR nimmt es vordefinierte Werte.
+- Anmerkung: Es kann mit `CBR` und `VBR` umgehen, aber nur `CBR` auslesen. Bei `VBR` nimmt es vordefinierte Werte.
 
 [3] Vorlagen anwenden
 - Verwendet Vordefinierte Vorlagen für Spezielle Anwendungsfälle
@@ -38,7 +38,7 @@ Das Skript zeigt dir in einem Menu eine Auswahl an Optionen an.
 - Entfern stumpf alle Untertitel, Video und Audio wird kopiert und Metadaten werden nicht angefasst.
 
 [5] Beenden  (STRG+C)
-- Beendet das Skript. Man kann auch jederzeit und überall STRG+C drücken um das Skript zu beendet.
+- Beendet das Skript. Man kann auch jederzeit und überall `STRG+C` drücken um das Skript zu beendet.
 
 ## Anpassung 
 
@@ -47,7 +47,7 @@ Untertiteldateien müssen den gleichen Namen wie das Video inne haben.
 
 [1] Transcodieren
 - CRF, Bitrate und Metadaten werden im Skript ganz oben angepasst.
-- Die Reihenfolge der Untertitel ist in der Variable i_files geregelt: ""i_files=(-i "${srt_files[0]}" -i "${srt_files[1]}" -i "${ass_files[0]}")""
+- Die Reihenfolge der Untertitel ist in der Variable i_files geregelt: `""i_files=(-i "${srt_files[0]}" -i "${srt_files[1]}" -i "${ass_files[0]}")""`
 - Empfohlene Struktur und Benennung ist:
 
 ```
@@ -62,8 +62,8 @@ Untertiteldateien müssen den gleichen Namen wie das Video inne haben.
 [2] Transcodieren mit Audo-Audio
 - Das gleiche wie bei [1] nur, das man Audio hier anpassen muss:
 
-	auto_bit_2="224"
-	auto_bit_6="448"
+	`auto_bit_2="224"`
+	`auto_bit_6="448"`
 
 [3] Vorlagen
 - Ein paar Beispiele sind vorgegeben, orientiere dich daran.
@@ -81,10 +81,10 @@ Untertiteldateien müssen den gleichen Namen wie das Video inne haben.
 ```
 
 [4] Untertitel entfernen
-- Benutzt nur -map 0:v -map 0:s -c:v copy -c:a copy und kopiert somit alle Video- und Audiospuren, mehr nicht.
+- Benutzt nur `-map 0:v -map 0:s -c:v copy -c:a copy` und kopiert somit alle Video- und Audiospuren, mehr nicht.
 
 [5] Beenden
-- Selbsterklärend. 5 drücken und mit Enter bestätigen. Oder 1x STRG+C drück.
+- Selbsterklärend. 5 drücken und mit Enter bestätigen. Oder 1x `STRG+C` drücken.
 
 ## Voraussetzungen, Empfehlungen und Anmerkungen
 
