@@ -1,4 +1,4 @@
-# ttKirbys-FFmpeg-Shell-Script
+# ttKirby's FFmpeg-Shell-Script
 
 Hier ein einfaches Shell-Skript zur Stapelverarbeitung von Videodateien mit FFmpeg.
 Das Skript durchsucht den aktuellen Ordner nach `.mkv`, `.mp4` und `.avi`-Dateien und bietet ein paar Funktionen zum Behandeln von Untertitel-Dateien.
