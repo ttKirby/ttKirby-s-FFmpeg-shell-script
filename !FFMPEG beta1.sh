@@ -1,5 +1,35 @@
 #!/bin/bash
 
+## Hier deine Werte für das Transcodieren eingeben.
+
+	# Videoqualität
+	crf="20"
+
+	# Audiobitrate
+	bit_2="224"
+	bit_6="448"
+	
+	# Audiobitrate für Audo-Audio
+	auto_bit_2="224"
+	auto_bit_6="448"
+
+	# Audiokanäle
+	audio_channe0="stereo"
+	audio_channe1="5.1"
+
+	# Metadata: Sprache (für Audio und Untertitel)
+	# lang_1="ger"
+	# lang_2="ja"
+
+	# Metadata: Audio
+	# title_audio1="Stereo"
+	# title_audio2="Surround"
+
+	# Metadata: Untertitel
+	# title_sub1="Forced"
+	# title_sub2="Full"
+
+
 trap 'echo -e "\nAbbruch durch Benutzer."; exit 1' INT
 
 WORKINGDIR="$(pwd -W)"
@@ -35,7 +65,7 @@ echo -e "╔══════════════════════�
 echo -e "║${NORMAL} Wähle Verarbeitungsweg                 ${BOLD}║"
 echo -e "╠════════════════════════════════════════╣"
 echo -e "║${NORMAL}${YELLOW} 1) Transkodieren                       ${BOLD}${CYAN}║"
-echo -e "║${NORMAL}${YELLOW} 2) Transkodieren mit Auto-Bitrate      ${BOLD}${CYAN}║"
+echo -e "║${NORMAL}${YELLOW} 2) Transkodieren mit Auto-Audio        ${BOLD}${CYAN}║"
 echo -e "║${NORMAL}${YELLOW} 3) Vorlagen anwenden                   ${BOLD}${CYAN}║"
 echo -e "║${NORMAL}${YELLOW} 4) Untertitel entfernen                ${BOLD}${CYAN}║"
 echo -e "║${NORMAL}${YELLOW} 5)${RED} Beenden  (STRG+C)                   ${BOLD}${CYAN}║"
@@ -147,9 +177,6 @@ do
 		metadata_s_0=""
 		metadata_s_1=""
 		metadata_s_2=""
-		# lang_sub=""
-		# title_sub=""
-		# dispos_sub=""
 
 		i_files=()
 		map_audio=()
@@ -159,28 +186,25 @@ do
 		bitrate_audio=()
 
 		## Function Execution Variablen
-		# crf="20"
-		# lang_1="ger"
-		# lang_2="ja"
-		# bit_1="224k"
-		# bit_2="448k"
-		# audio_1="stereo"
-		# audio_2="5.1"
-		# title_1="Stereo"
-		# title_2="Full"
+
+	# lang_1="ger"
+	# lang_2="ja"
+	# title_audio1="Stereo"
+	# title_audio2="Surround"
+	# title_sub1="Forced"
+	# title_sub2="Full"
+
+	# ${bit_2}k
 
 		transcode1() {
 				echo ""
-				map_video="-map 0:v -c:v libx265 -crf 20"
+				map_video="-map 0:v -c:v libx265 -crf $crf"
 				if [[ "$animation" == "1" ]]; then
 					tune_ani="-tune animation"
 				fi
-				# if [[ "$auswahl" == "1" ]]; then
-					# map_audio="-map 0:a -c:a copy"
-				# fi
 				if [[ "$auswahl" == "1" ]]; then
-					map_audio=("-map 0:a:0 -c:a:0 eac3 -b:a:0 224k -filter:a:0 aformat=channel_layouts=stereo 
-								-map 0:a:1 -c:a:1 eac3 -b:a:1 448k -filter:a:1 aformat=channel_layouts=5.1")
+					map_audio=("-map 0:a:0 -c:a:0 eac3 -b:a:0 ${bit_2}k -filter:a:0 aformat=channel_layouts=$audio_channe0
+								-map 0:a:1 -c:a:1 eac3 -b:a:1 ${bit_6}k -filter:a:1 aformat=channel_layouts=$audio_channe1")
 				fi
 		}
 
@@ -212,49 +236,49 @@ do
 
 		# [1] Transkodieren
 		if [[ "$auswahl" == "1" || "$auswahl" == "2" ]]; then
-			if [ ${#srt_files[@]} -eq 0 ] && [ ${#ass_files[@]} -eq 0 ]; then
+			if [ ${#srt_files[@]} -eq 0 ] && [ ${#ass_files[@]} -eq 0 ]; then										# 0 SRT & 0 ASS
 				echo -e "${YELLOW}Keine Untertiteldateien gefunden.${RESET}"
 				transcode1
-				type_sub="-c:s:0 srt"
-			elif [ ${#srt_files[@]} -eq 1 ] && [ ${#ass_files[@]} -eq 0 ]; then
+				type_sub="-c:s srt"
+			elif [ ${#srt_files[@]} -eq 1 ] && [ ${#ass_files[@]} -eq 0 ]; then										# 1 SRT & 0 ASS
 				echo -e "${YELLOW}Eine Untertiteldateien (1x SRT) gefunden.${RESET}"
 				transcode1
+				metadata_a_0="-metadata:s:a:0 language=ger -metadata:s:a:0 title=Stereo -disposition:a:0 default"
+				metadata_s_0="-metadata:s:s:0 language=ger -metadata:s:s:0 title=Full -disposition:s:0 default"
 				map_files="-map 1"
 				type_sub="-c:s:0 srt"
-				metadata_a_0="-metadata:s:a:0 language=ger -metadata:s:a:0 title=Stereo -disposition:a:0 default"
-				metadata_s_0="-metadata:s:s:0 language=ger -metadata:s:s:0 title=Full -disposition:s:0 default"
 				i_files=(-i "${srt_files[0]}")
-			elif [ ${#srt_files[@]} -ge 2 ] && [ ${#ass_files[@]} -eq 0 ]; then
+			elif [ ${#srt_files[@]} -ge 2 ] && [ ${#ass_files[@]} -eq 0 ]; then										# 2 SRT & 0 ASS
 				echo -e "${YELLOW}Zwei Untertiteldateien (2x SRT) gefunden.${RESET}"
 				transcode1
+				metadata_a_0="-metadata:s:a:0 language=ger -metadata:s:a:0 title=Stereo -disposition:a:0 default"
+				metadata_a_1="-metadata:s:a:1 language=ja -metadata:s:a:1 title=Stereo -disposition:a:1 -default"
+				metadata_s_0="-metadata:s:s:0 language=ger -metadata:s:s:0 title=Full -disposition:s:0 default"
+				metadata_s_1="-metadata:s:s:1 language=ger -metadata:s:s:1 title=Full -disposition:s:1 -default"
 				map_files="-map 1 -map 2"
 				type_sub="-c:s:0 srt -c:s:1 srt"
-				metadata_a_0="-metadata:s:a:0 language=ger -metadata:s:a:0 title=Stereo -disposition:a:0 default"
-				metadata_a_1="-metadata:s:a:1 language=ja -metadata:s:a:1 title=Stereo -disposition:a:1 -default"
-				metadata_s_0="-metadata:s:s:0 language=ger -metadata:s:s:0 title=Full -disposition:s:0 default"
-				metadata_s_1="-metadata:s:s:1 language=ger -metadata:s:s:1 title=Full -disposition:s:1 -default"
 				i_files=(-i "${srt_files[0]}" -i "${srt_files[1]}")
-			elif [ ${#srt_files[@]} -eq 1 ] && [ ${#ass_files[@]} -eq 1 ]; then
+			elif [ ${#srt_files[@]} -eq 1 ] && [ ${#ass_files[@]} -eq 1 ]; then										# 1 SRT & 0 ASS
 				echo -e "${YELLOW}Zwei Untertiteldateien (1x SRT & 1x ASS) gefunden.${RESET}"
 				transcode1
-				map_files="-map 1 -map 2"
-				type_sub="-c:s:0 srt -c:s:1 ass"
 				metadata_a_0="-metadata:s:a:0 language=ger -metadata:s:a:0 title=Stereo -disposition:a:0 default"
 				metadata_a_1="-metadata:s:a:1 language=ja -metadata:s:a:1 title=Stereo -disposition:a:1 -default"
 				metadata_s_0="-metadata:s:s:0 language=ger -metadata:s:s:0 title=Full -disposition:s:0 default"
 				metadata_s_1="-metadata:s:s:1 language=ger -metadata:s:s:1 title=Full -disposition:s:1 -default"
+				map_files="-map 1 -map 2"
+				type_sub="-c:s:0 srt -c:s:1 ass"
 				i_files=(-i "${srt_files[0]}" -i "${ass_files[0]}")
-			elif [ ${#srt_files[@]} -eq 2 ] && [ ${#ass_files[@]} -eq 1 ]; then
+			elif [ ${#srt_files[@]} -eq 2 ] && [ ${#ass_files[@]} -eq 1 ]; then										# 2 SRT & 1 ASS
 				echo -e "${YELLOW}Drei Untertiteldateien (2x SRT & 1x ASS) gefunden.${RESET}"
 				transcode1
-				map_files="-map 1 -map 2 -map 3"
-				type_sub="-c:s:0 srt -c:s:1 srt -c:s:2 ass"
 				metadata_a_0="-metadata:s:a:0 language=ger -metadata:s:a:0 title=Stereo -disposition:a:0 default"
 				metadata_a_1="-metadata:s:a:1 language=ja -metadata:s:a:1 title=Stereo -disposition:a:1 -default"
 				metadata_a_2="-metadata:s:a:2 language=ja -metadata:s:a:2 title=Stereo -disposition:a:2 -default"
 				metadata_s_0="-metadata:s:s:0 language=ger -metadata:s:s:0 title=Forced -disposition:s:0 default"
 				metadata_s_1="-metadata:s:s:1 language=ger -metadata:s:s:1 title=Full -disposition:s:1 -default"
 				metadata_s_2="-metadata:s:s:2 language=ger -metadata:s:s:2 title=Full -disposition:s:2 -default"
+				map_files="-map 1 -map 2 -map 3"
+				type_sub="-c:s:0 srt -c:s:1 srt -c:s:2 ass"
 				i_files=(-i "${srt_files[0]}" -i "${srt_files[1]}" -i "${ass_files[0]}")
 			fi
 		fi
@@ -283,17 +307,17 @@ do
 					channels_audio+=("-filter:a:$i" "aformat=channel_layouts=stereo")
 					title_audio+=("-metadata:s:a:$i" "title=Stereo")
 					if [[ "$bitrate" == "N/A" ]]; then
-						echo -e "${YELLOW}Setze Audiobitrate auf 224k.${RESET}"
+						echo -e "${YELLOW}Setze Audiobitrate auf ${auto_bit_2}k.${RESET}"
 						echo ""
-						bitrate_audio+=("-b:a:$i" "224k")				# VBR Stereo
-					elif [[ "$bitrate_kbps" -le 224 ]]; then			# CBR Stereo
+						bitrate_audio+=("-b:a:$i" "${auto_bit_2}k")				# VBR Stereo
+					elif [[ "$bitrate_kbps" -le ${auto_bit_2} ]]; then			# CBR Stereo
 						echo -e "${YELLOW}Setze Audiobitrate auf ${bitrate_kbps}k.${RESET}"
 						echo ""
 						bitrate_audio+=("-b:a:$i" "${bitrate_kbps}k")
 					else
-						echo -e "${YELLOW}Setze Audiobitrate auf 224k.${RESET}"
+						echo -e "${YELLOW}Setze Audiobitrate auf ${auto_bit_2}k.${RESET}"
 						echo ""
-						bitrate_audio+=("-b:a:$i" "224k")				# CBR Stereo
+						bitrate_audio+=("-b:a:$i" "${auto_bit_2}k")				# CBR Stereo
 					fi
 				elif [[ "$channels" -eq 6 ]]; then
 					codec_audio+=("-c:a:$i" "eac3")
@@ -301,17 +325,17 @@ do
 					channels_audio+=("-filter:a:$i" "aformat=channel_layouts=5.1")
 					title_audio+=("-metadata:s:a:$i" "title=Surround")
 					if [[ "$bitrate" == "N/A" ]]; then
-						echo -e "${YELLOW}Setze Audiobitrate auf 448k.${RESET}"
+						echo -e "${YELLOW}Setze Audiobitrate auf ${auto_bit_6}k.${RESET}"
 						echo ""
-						bitrate_audio+=("-b:a:$i" "448k")				# VBR Surround
-					elif [[ "$bitrate_kbps" -le 448 ]]; then			# CBR Surround
+						bitrate_audio+=("-b:a:$i" "${auto_bit_6}k")				# VBR Surround
+					elif [[ "$bitrate_kbps" -le ${auto_bit_6} ]]; then			# CBR Surround
 						echo -e "${YELLOW}Setze Audiobitrate auf ${bitrate_kbps}k.${RESET}"
 						echo ""
 						bitrate_audio+=("-b:a:$i" "${bitrate_kbps}k")
 					else
-						echo -e "${YELLOW}Setze Audiobitrate auf 448k.${RESET}"
+						echo -e "${YELLOW}Setze Audiobitrate auf ${auto_bit_6}k.${RESET}"
 						echo ""
-						bitrate_audio+=("-b:a:$i" "448k")				# CBR Surround
+						bitrate_audio+=("-b:a:$i" "${auto_bit_6}k")				# CBR Surround
 					fi
 				else
 					echo -e "${RED}Spur $i hat $channels Kanäle – nicht unterstützt.${RESET}"
@@ -386,7 +410,7 @@ do
 			echo -e "${YELLOW}$SHUTDOWNFILE gefunden. ${RESET}"
 			echo -e "${YELLOW}Computer fährt in fünf Minuten runter.${RESET}"
 			shutdown -s -t 300	# Windows
-#			shutdown -h +5		# Linux
+			shutdown -h +5		# Linux + Mac
 		fi
 
 		# PAUSE
