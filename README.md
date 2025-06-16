@@ -1,6 +1,6 @@
 # ttKirby's-FFmpeg-Shell-Script
 
-It is still under construction but works so far. English script comming soon.
+It is still under construction but works so far. English Script comming soon.
 
 ## Introduction
 
@@ -23,15 +23,13 @@ It is still under construction but works so far. English script comming soon.
 - If environment variables have been set under Windows, simply double-click to execute. Otherwise open via console/terminal
 - The script shows you a selection of options in a menu.
 
-Translated with DeepL.com (free version)
-
 ## Functionality
 
 [1] Transcoding
 - Works with fixed values for video, audio and subtitles.
 - You should also adjust these for yourself if necessary!
 
-[2] Transcoding with auto audio
+[2] Transcoding with Auto-Audio
 - Works with fixed values for video and subtitles. Recognizes audio channels and bit rates by FFprobe and reacts with predefined values.
 - e.g. `2 channel = 224k` and `6 channel = 448k`.
 - You should also adjust these for yourself if necessary!
@@ -45,8 +43,6 @@ Translated with DeepL.com (free version)
 
 [5] Exit (CTRL+C)
 - Exits the script. You can also press `CTRL+C` anytime and anywhere to end the script.
-
-Translated with DeepL.com (free version)
 
 [6] Shutdown and pause
 - The script checks whether certain files are present in order to automatically shut down the PC or terminate the script.
@@ -64,8 +60,6 @@ Translated with DeepL.com (free version)
 - The order of the subtitles is defined in the variable i_files: 
  `""i_files=(-i "${srt_files[0]}" -i "${srt_files[1]}" -i "${ass_files[0]}")""`
 - Recommended structure and naming is:
-
-Translated with DeepL.com (free version)
 
 ```
 /MyFolder
