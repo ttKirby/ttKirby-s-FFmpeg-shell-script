@@ -1,113 +1,119 @@
 # ttKirby's-FFmpeg-Shell-Script
 
-Still in development, but works so far. English script comming soon.
+It is still under construction but works so far.
 
-## Overview
+## Introduction
 
-- A simple shell script for batch processing video files using FFmpeg.
-- The script scans the current folder for `.mkv`, `.mp4`, and `.avi` files and offers a few features for handling subtitle files.
-- It uses some variables and arrays, lists all videos in the folder, and asks what should be done with them.
-- This script is loosely based on a friend's version. I don't have much experience writing scripts — this is my first larger project — but I hope someone out there will find it useful.
+- Here is a simple shell script for batch processing video files with FFmpeg.
+- The script searches the current folder for `.mkv`, `.mp4` and `.avi` files and offers a few functions to handle subtitle files.
+- It works with a few variables and arrays, lists all videos in the folder and then asks what to do with them.
+- This script is remotely based on a friend's. I don't have much experience in writing scripts, this is my first one with a larger scope, but I hope there are some people here who will find it useful.
 
-## Features
+## Functions
 
 - Automatically process videos in a folder
 - Support for external subtitle files (`.srt` and `.ass`)
-- Automatically detects audio streams in video files. Applies presets based on the number and properties of the audio tracks
-- Simple templates for common FFmpeg configurations
-- Option to remove subtitles
-- Many comments and echo outputs in the script to explain what happens where — great for understanding the flow and for customizing your own values
+- Automatically detects audio streams in video files. Applies appropriate presets based on number and properties of audio tracks
+- Simple templates for specific FFmpeg configurations
+- Possibility to remove subtitles
+- Many comments and echoes in the script that explain where what happens, for better understanding and, if necessary, to add your own values
 
 ## Usage
 
-- If environment variables are set on Windows, just double-click to run. Otherwise, open via console/terminal
-- The script presents a menu of available options
+- If environment variables have been set under Windows, simply double-click to execute. Otherwise open via console/terminal
+- The script shows you a selection of options in a menu.
+
+Translated with DeepL.com (free version)
 
 ## Functionality
 
-[1] Transcoding  
-- Uses predefined settings for video, audio, and subtitles  
-- You should adjust them to your needs if necessary!
+[1] Transcoding
+- Works with fixed values for video, audio and subtitles.
+- You should also adjust these for yourself if necessary!
 
-[2] Transcoding with Auto-Audio  
-- Uses predefined settings for video and subtitles. Detects audio channels and bitrates via FFprobe and responds with predefined values  
-- e.g. `2 channels = 224k` and `6 channels = 448k`  
-- You should adjust these to your needs if necessary!  
-- Note: It can handle both `CBR` and `VBR`, but only detects `CBR`. For `VBR`, it uses predefined fallback values.
+[2] Transcoding with auto audio
+- Works with fixed values for video and subtitles. Recognizes audio channels and bit rates by FFprobe and reacts with predefined values.
+- e.g. `2 channel = 224k` and `6 channel = 448k`.
+- You should also adjust these for yourself if necessary!
+- Note: It can handle `CBR` and `VBR`, but only reads out `CBR`. For `VBR` it takes predefined values.
 
-[3] Apply templates  
-- Uses predefined templates for specific use cases
+[3] Apply templates
+- Uses predefined templates for special use cases
 
-[4] Remove subtitles  
-- Simply removes all subtitles. Video and audio are copied without touching metadata.
+[4] Remove subtitles
+- Removes all subtitles, video and audio is copied and metadata is not touched.
 
-[5] Exit (CTRL+C)  
-- Exits the script. You can also press `CTRL+C` at any time to stop the script.
+[5] Exit (CTRL+C)
+- Exits the script. You can also press `CTRL+C` anytime and anywhere to end the script.
 
-[6] Shutdown and Pause  
-- The script checks for specific files to either shut down the PC or exit the script automatically.
-- Pause: If a `pause.txt` file is present in the folder, the script will exit automatically after completing the current task. You can create this file at any time.
-- Shutdown: If a `shutdown.txt` file is present, the PC will shut down after the current task is completed. You can create this file at any time.
-- For details, see the bottom of the script under the `# SHUTDOWN` and `# PAUSE` sections.
+Translated with DeepL.com (free version)
 
-## Customization
+[6] Shutdown and pause
+- The script checks whether certain files are present in order to automatically shut down the PC or terminate the script.
+- Pause: If there is a `pause.txt` in the folder, the script terminates itself after the current processing has been completed. Can be easily created in the folder at any time.
+- Shutdown: If there is a `shutdown.txt` in the folder, it shuts down the PC after the current processing has been completed. Can be easily created in the folder at any time.
+- For a more detailed procedure, see the whole script below under the headings `# SHUTDOWN` and `# PAUSE`.
 
-- The script must be in the same folder as the videos to be processed.  
-- Subtitle files must have the same name as the video file.
+## Customization 
 
-[1] Transcoding  
-- CRF, bitrate, and metadata settings can be found at the top of the script.  
-- The order of subtitle files is defined in the `i_files` variable:  
-  `i_files=(-i \"${srt_files[0]}\" -i \"${srt_files[1]}\" -i \"${ass_files[0]}\")`  
-- Recommended structure and naming:
+- The script must be in the same folder as the videos to be edited.  
+- Subtitle files must have the same name as the video.
+
+[1] Transcode
+- CRF, bit rate and metadata are adjusted at the top of the script.
+- The order of the subtitles is defined in the variable i_files: 
+ `""i_files=(-i "${srt_files[0]}" -i "${srt_files[1]}" -i "${ass_files[0]}")""`
+- Recommended structure and naming is:
+
+Translated with DeepL.com (free version)
 
 ```
 /MyFolder
-  ├── !FFMPEG beta1.sh
-  ├── video1.mkv
-  ├── video1.FORCED.srt
-  ├── video1.FULL.srt
-  ├── video1.FULL.ass
+ ├── !FFMPEG beta1.sh
+ ├── video1.mkv
+ ├── video1.FORCED.srt
+ ├── video1.FULL.srt
+ ├── video1.FULL.ass
 ```
 
-[2] Transcoding with Auto-Audio  
-- Same as [1], except audio bitrate needs to be customized:  
-  `auto_bit_2=\"224\"`  
-  `auto_bit_6=\"448\"`
+[2] Transcodieren mit Audo-Audio
+- Das gleiche wie bei [1] nur, das man Audio hier anpassen muss:
+- `auto_bit_2="224"`
+- `auto_bit_6="448"`
 
-[3] Templates  
-- Some examples are included — use them as reference  
-- The most important options to include video, audio, and subtitles are:
+[3] Vorlagen
+- Ein paar Beispiele sind vorgegeben, orientiere dich daran.
+- Das wichtigste um Bild, Ton und gegebenfalls Text in die Videodatei zu bekommen sind:
 
 ```
--map 0:v            # use video stream
--map 0:a            # use audio
--map 0:s            # use subtitles
--c:v libx265        # transcode to h265
--c:a eac3           # transcode to E-AC3
--b:a 224k           # constant audio bitrate (CBR) at 224k
--ac 2               # 2 channels = stereo, 6 = 5.1
--c:s srt            # transcode subtitles to srt format
+-map 0:v		# uses video track
+-map 0:a		# uses audio
+-map 0:s 		# uses subtitles
+-c:v libx265		# Transcoded to h265
+-c:a eac3		# Transcodes to E-AC3
+-b:a 224k		# Takes a constant audio bitrate (CBR) of 224k
+-ac 2			# 2 channel stands for stereo, 6 would be for 5.1
+-c:s srt		# Transcodes the subtitle to srt format
 ```
 
-[4] Remove subtitles  
-- Only uses `-map 0:v -map 0:s -c:v copy -c:a copy`, so video and audio are copied without changes.
+[4] Remove subtitles
+- Only uses `-map 0:v -map 0:s -c:v copy -c:a copy` and thus copies all video and audio tracks, nothing more.
 
-[5] Exit  
-- Self-explanatory. Press 5 and hit Enter — or press `CTRL+C` anytime.
+[5] Exit
+- Self-explanatory. Press 5 and confirm with Enter. Or press `STRG+C` once.
 
-## Requirements, Recommendations & Notes
+## Requirements, recommendations and notes
 
-- FFmpeg must be installed. You may need to set environment variables.
-- Git: https://git-scm.com/downloads  
-- Recommended editor for Windows: https://notepad-plus-plus.org/downloads/  
-- Should theoretically work on Linux and macOS too — practically tested only on Windows!  
-- For editing subtitles: https://www.nikse.dk/subtitleedit  
-- To inspect video file info: https://mediaarea.net/en/MediaInfo  
+- FFmpeg must be installed. Environment variables may need to be set.
+- Git (https://git-scm.com/downloads)
+- For editing under Windows I recommend: https://notepad-plus-plus.org/downloads/
+- Theoretically also works under Linux and Mac, in practice I have only tested it under Windows!
+- Subtitles are best edited with SubtitleEdit: https://www.nikse.dk/subtitleedit
+- You can read out your video files with MediaInfo: https://mediaarea.net/en/MediaInfo
 
-- Powerful tool for video processing: https://handbrake.fr/  
-- Another handy tool for managing video files: https://mkvtoolnix.download/
+- Powerful tool for editing video files: https://handbrake.fr/
+- Also a very practical tool to manage your videos: https://mkvtoolnix.download/
 
 ## License
 
-MIT – free to use, modify, and share.
+MIT - freely usable, modifiable and shareable.
