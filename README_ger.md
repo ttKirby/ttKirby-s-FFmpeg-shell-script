@@ -100,14 +100,14 @@ Es ist noch im Aufbau aber funktioniert soweit.
 
 - FFmpeg muss installiert sein. Umgebungsvariablen müssen eventuell gesetzt werden.
 - Git (https://git-scm.com/downloads)
-- Zur Bearbeitung unter Windows empfehle ich: https://notepad-plus-plus.org/downloads/
-- Auf Windows getestet. Funktioniert theoretisch auch unter Linux und macOS.
 
+- Zur Bearbeitung unter Windows empfehle ich: https://notepad-plus-plus.org/downloads/
 - Untertitel bearbeitet man am besten mit SubtitleEdit: https://www.nikse.dk/subtitleedit
 - Seine Videodateien kann man mit MediaInfo auslesen: https://mediaarea.net/en/MediaInfo
-
 - Mächtiges Werkzeug zum bearbeiten von Videodateien: https://handbrake.fr/
 - Auch sehr praktisches Werkzeug um seine Videos zu handhaben: https://mkvtoolnix.download/
+
+- Auf Windows getestet. Funktioniert theoretisch auch unter Linux und macOS.
 
 ## Lizenz
 
