@@ -4,13 +4,10 @@ Es ist noch im Aufbau aber funktioniert soweit.
 
 ## Vorstellung
 
-Hier ein einfaches Shell-Skript zur Stapelverarbeitung von Videodateien mit FFmpeg.
-
-Das Skript durchsucht den aktuellen Ordner nach `.mkv`, `.mp4` und `.avi`-Dateien und bietet ein paar Funktionen zum Behandeln von Untertitel-Dateien.
-
-Es arbeitet mit ein paar Variablen und Arrays, listet alle Videos im Ordner auf und fragt dann, was damit passieren soll.
-
-Ich habe nicht viel erfahrung im schreiben von Skripten, aber ich hoffe hier findet sich der ein oder andere der einen Nutzen darin findet.
+- Hier ein einfaches Shell-Skript zur Stapelverarbeitung von Videodateien mit FFmpeg.
+- Das Skript durchsucht den aktuellen Ordner nach `.mkv`, `.mp4` und `.avi`-Dateien und bietet ein paar Funktionen zum Behandeln von Untertitel-Dateien.
+- Es arbeitet mit ein paar Variablen und Arrays, listet alle Videos im Ordner auf und fragt dann, was damit passieren soll.
+- Dieses Skript basiert entfernt auf dem eines Freundes. Viel erfahrung im schreiben von Skripten habe ich nicht, dies hier ist mein erstes mit größerem Umfang, aber ich hoffe, hier findet sich der ein oder andere, der einen Nutzen darin sieht.
 
 ## Funktionen
 
@@ -23,8 +20,8 @@ Ich habe nicht viel erfahrung im schreiben von Skripten, aber ich hoffe hier fin
 
 ## Verwendung
 
-Wenn umgebungsvariablen unter Windows gesetzt wurden, einfach doppelklick zum ausführen. Sonst über Konsole/Terminal öffnen
-Das Skript zeigt dir in einem Menu eine Auswahl an Optionen an.
+- Wenn umgebungsvariablen unter Windows gesetzt wurden, einfach doppelklick zum ausführen. Sonst über Konsole/Terminal öffnen
+- Das Skript zeigt dir in einem Menu eine Auswahl an Optionen an.
 
 ## Funktionsweise
 
@@ -47,10 +44,16 @@ Das Skript zeigt dir in einem Menu eine Auswahl an Optionen an.
 [5] Beenden  (STRG+C)
 - Beendet das Skript. Man kann auch jederzeit und überall `STRG+C` drücken um das Skript zu beendet.
 
+[6] Herunterfahren und Pause
+- Das Skript prüft, ob bestimmte Dateien vorhanden sind, um automatisch den PC herunterzufahren oder das Skript zu beenden.
+- Pause: Wenn eine `pause.txt` im Ordner liegt, beendet das Skript nach Abschluss der aktuellen Verarbeitung sich von alleine. Kann jederzeit einfach im Ordner erstellt werden.
+- Herunterfahren: Wenn ein `shutdown.txt` im Ordner liegt, fährt es den PC nach Abschluss der aktuellen Verarbeitung herunter. Kann jederzeit einfach im Ordner erstellt werden.
+- Zum genaueren Ablauf siehe ganze unten im Skript unter der Überschrift `# SHUTDOWN` und `# PAUSE`.
+
 ## Anpassung 
 
-Das Skript muss im gleichen Ordner liegen wie die zu bearbeitenden Videos.  
-Untertiteldateien müssen den gleichen Namen wie das Video inne haben.
+- Das Skript muss im gleichen Ordner liegen wie die zu bearbeitenden Videos.  
+- Untertiteldateien müssen den gleichen Namen wie das Video inne haben.
 
 [1] Transcodieren
 - CRF, Bitrate und Metadaten werden im Skript ganz oben angepasst.
@@ -68,10 +71,8 @@ Untertiteldateien müssen den gleichen Namen wie das Video inne haben.
 
 [2] Transcodieren mit Audo-Audio
 - Das gleiche wie bei [1] nur, das man Audio hier anpassen muss:
-
-	`auto_bit_2="224"`
-
-	`auto_bit_6="448"`
+-	`auto_bit_2="224"`
+-	`auto_bit_6="448"`
 
 [3] Vorlagen
 - Ein paar Beispiele sind vorgegeben, orientiere dich daran.
@@ -81,7 +82,7 @@ Untertiteldateien müssen den gleichen Namen wie das Video inne haben.
 -map 0:v		# nutzt Videospur
 -map 0:a		# nutzt Audio
 -map 0:s 		# nutzt Untertitel
--c:v libx265		# Transkodiert zu h265
+-c:v libx265	# Transkodiert zu h265
 -c:a eac3		# Transkodiert zu E-AC3
 -b:a 224k		# Nimmt eine konstante Audiobitrate (CBR) von 224k
 -ac 2			# 2 Kanal steht für Stereo, 6 wäre für 5.1
