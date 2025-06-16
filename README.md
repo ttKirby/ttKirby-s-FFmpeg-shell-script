@@ -1,6 +1,6 @@
 # ttKirby's-FFmpeg-Shell-Script
 
-It is still under construction but works so far.
+It is still under construction but works so far. English script comming soon.
 
 ## Introduction
 
