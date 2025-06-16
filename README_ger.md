@@ -76,13 +76,13 @@ Es ist noch im Aufbau aber funktioniert soweit.
 
 [3] Vorlagen
 - Ein paar Beispiele sind vorgegeben, orientiere dich daran.
-- Das wichtigste um Bild, Ton und gegebenfalls Text in das Videofile zu bekommen sind
+- Das wichtigste um Bild, Ton und gegebenfalls Text in die Videodatei zu bekommen sind:
 
 ```
 -map 0:v		# nutzt Videospur
 -map 0:a		# nutzt Audio
 -map 0:s 		# nutzt Untertitel
--c:v libx265	  # Transkodiert zu h265
+-c:v libx265		# Transkodiert zu h265
 -c:a eac3		# Transkodiert zu E-AC3
 -b:a 224k		# Nimmt eine konstante Audiobitrate (CBR) von 224k
 -ac 2			# 2 Kanal steht für Stereo, 6 wäre für 5.1
