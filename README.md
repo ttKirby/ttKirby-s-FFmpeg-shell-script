@@ -5,9 +5,12 @@ English script comming soon.
 
 ## Introduction
 
-Here's a simple shell script for batch processing video files using FFmpeg.  
-The script searches the current folder for `.mkv`, `.mp4`, and `.avi` files and offers a few functions for handling subtitle files.  
-It uses some variables and arrays, lists all videos in the folder, and then asks what should be done with them.  
+Here's a simple shell script for batch processing video files using FFmpeg.
+
+The script searches the current folder for `.mkv`, `.mp4`, and `.avi` files and offers a few functions for handling subtitle files.
+
+It uses some variables and arrays, lists all videos in the folder, and then asks what should be done with them.
+
 I don’t have much experience writing scripts, but I hope someone might find this useful.
 
 ## Features
