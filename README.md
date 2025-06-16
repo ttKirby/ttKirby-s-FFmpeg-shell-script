@@ -100,14 +100,14 @@ It is still under construction but works so far. English Script comming soon.
 
 - FFmpeg must be installed. Environment variables may need to be set.
 - Git (https://git-scm.com/downloads)
+ 
 - For editing under Windows I recommend: https://notepad-plus-plus.org/downloads/
-- Tested on Windows. Theoretically also works on Linux and macOS.
-
 - Subtitles are best edited with SubtitleEdit: https://www.nikse.dk/subtitleedit
 - You can read out your video files with MediaInfo: https://mediaarea.net/en/MediaInfo
-
 - Powerful tool for editing video files: https://handbrake.fr/
 - Also a very practical tool to manage your videos: https://mkvtoolnix.download/
+
+- Tested on Windows. Theoretically also works on Linux and macOS.
 
 ## License
 
