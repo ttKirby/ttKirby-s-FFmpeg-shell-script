@@ -57,7 +57,8 @@ Es ist noch im Aufbau aber funktioniert soweit.
 
 [1] Transcodieren
 - CRF, Bitrate und Metadaten werden im Skript ganz oben angepasst.
-- Die Reihenfolge der Untertitel ist in der Variable i_files geregelt: `""i_files=(-i "${srt_files[0]}" -i "${srt_files[1]}" -i "${ass_files[0]}")""`
+- Die Reihenfolge der Untertitel ist in der Variable i_files geregelt:
+  `""i_files=(-i "${srt_files[0]}" -i "${srt_files[1]}" -i "${ass_files[0]}")""`
 - Empfohlene Struktur und Benennung ist:
 
 ```
