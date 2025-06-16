@@ -63,7 +63,7 @@ Es ist noch im Aufbau aber funktioniert soweit.
 
 ```
 /MyFolder
-  ├── !FFMPEG beta1.sh
+  ├─- !FFMPEG beta1.sh
   ├── video1.mkv
   ├── video1.FORCED.srt
   ├── video1.FULL.srt
