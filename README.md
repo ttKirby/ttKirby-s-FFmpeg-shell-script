@@ -83,7 +83,7 @@ Still in development, but works so far.
 -map 0:v            # use video stream
 -map 0:a            # use audio
 -map 0:s            # use subtitles
--c:v libx265			# transcode to h265
+-c:v libx265  # transcode to h265
 -c:a eac3           # transcode to E-AC3
 -b:a 224k           # constant audio bitrate (CBR) at 224k
 -ac 2               # 2 channels = stereo, 6 = 5.1
