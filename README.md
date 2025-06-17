@@ -5,8 +5,8 @@ Es ist noch im Aufbau aber funktioniert soweit.
 ## Vorstellung
 
 - Hier ein einfaches Shell-Skript zur Stapelverarbeitung von Videodateien mit FFmpeg.
-- Das Skript durchsucht den aktuellen Ordner nach `.mkv`, `.mp4` und `.avi`-Dateien und bietet ein paar Funktionen zum Behandeln von Untertitel-Dateien.
-- Es arbeitet mit ein paar Variablen und Arrays, listet alle Videos im Ordner auf und fragt dann, was damit passieren soll.
+- Das Skript durchsucht den aktuellen Ordner nach `.mkv`, `.mp4` und `.avi`-Dateien und bietet einige Funktionen zum Behandeln von Untertitel-Dateien.
+- Es durchläuft alle Videos im Ordner, arbeitet mit Variablen udn Arrays und fragt einen was gemacht werden soll.
 - Dieses Skript basiert entfernt auf dem eines Freundes. Viel erfahrung im schreiben von Skripten habe ich nicht, dies hier ist mein erstes mit größerem Umfang, aber ich hoffe, hier findet sich der ein oder andere, der einen Nutzen darin sieht.
 
 ## Funktionen
