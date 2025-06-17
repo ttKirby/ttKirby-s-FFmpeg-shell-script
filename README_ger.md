@@ -48,8 +48,8 @@ Es ist noch im Aufbau aber funktioniert soweit.
 - Das Skript prüft, ob bestimmte Dateien vorhanden sind, um automatisch den PC herunterzufahren oder das Skript zu beenden.
 - Pause: Wenn eine `pause.txt` im Ordner liegt, beendet das Skript nach Abschluss der aktuellen Verarbeitung sich von alleine. Kann jederzeit einfach im Ordner erstellt werden.
 - Herunterfahren: Wenn ein `shutdown.txt` im Ordner liegt, fährt es den PC nach Abschluss der aktuellen Verarbeitung herunter. Kann jederzeit einfach im Ordner erstellt werden.
-- Zum genaueren Ablauf siehe ganze unten im Skript unter der Überschrift `# SHUTDOWN` und `# PAUSE`.
-- Den Zielort kann man weit oben unter `# Zielort wählen` wählen.
+- Zum genaueren Ablauf siehe ganze unten im Skript unter der Überschrift `## SHUTDOWN` und `## PAUSE`.
+- Den Zielort kann man weit oben unter `## Zielort wählen` wählen.
 
 ## Anpassung 
 
