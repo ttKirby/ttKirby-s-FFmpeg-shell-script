@@ -99,9 +99,9 @@ Es ist noch im Aufbau aber funktioniert soweit.
 ## Voraussetzungen, Empfehlungen und Anmerkungen
 
 - FFmpeg muss installiert sein. Umgebungsvariablen müssen eventuell gesetzt werden.
-- Git (https://git-scm.com/downloads)
+- Git (https://git-scm.com/downloads) Wird zum ausführen benötigt.
 - Zur Bearbeitung unter Windows empfehle ich: https://notepad-plus-plus.org/downloads/
-- Funktioniert theoretisch auch unter Linux und Mac, praktisch habe ich es nur unter Windows getestet!
+- Getestet unter Windows. Funktioniert theoretisch auch unter Linux und MacOS.
 - Untertitel bearbeitet man am besten mit SubtitleEdit: https://www.nikse.dk/subtitleedit
 - Seine Videodateien kann man mit MediaInfo auslesen: https://mediaarea.net/en/MediaInfo
 
