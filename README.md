@@ -108,6 +108,14 @@ Es ist noch im Aufbau aber funktioniert soweit.
 - Mächtiges Werkzeug zum bearbeiten von Videodateien: https://handbrake.fr/
 - Auch sehr oraktisches Werkzeug um seine Videos zu handhaben: https://mkvtoolnix.download/
 
+## Versionsverlauf
+
+### beta3 
+  - Bietet nun die Möglichkeit nur eine Audiospur zu bearbeiten wenn mehrere vorhanden sind
+
+### beta2
+  - Bugfixes
+
 ## Lizenz
 
 MIT – frei verwendbar, veränderbar und teilbar.
