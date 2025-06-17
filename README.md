@@ -1,114 +1,113 @@
 # ttKirby's-FFmpeg-Shell-Script
 
-It is still under construction but works so far. English Script comming soon.
+Es ist noch im Aufbau aber funktioniert soweit.
 
-## Introduction
+## Vorstellung
 
-- Here is a simple shell script for batch processing video files with FFmpeg.
-- The script searches the current folder for `.mkv`, `.mp4` and `.avi` files and offers a few functions to handle subtitle files.
-- It works with a few variables and arrays, lists all videos in the folder and then asks what to do with them.
-- This script is remotely based on a friend's. I don't have much experience in writing scripts, this is my first one with a larger scope, but I hope there are some people here who will find it useful.
+- Hier ein einfaches Shell-Skript zur Stapelverarbeitung von Videodateien mit FFmpeg.
+- Das Skript durchsucht den aktuellen Ordner nach `.mkv`, `.mp4` und `.avi`-Dateien und bietet ein paar Funktionen zum Behandeln von Untertitel-Dateien.
+- Es arbeitet mit ein paar Variablen und Arrays, listet alle Videos im Ordner auf und fragt dann, was damit passieren soll.
+- Dieses Skript basiert entfernt auf dem eines Freundes. Viel erfahrung im schreiben von Skripten habe ich nicht, dies hier ist mein erstes mit größerem Umfang, aber ich hoffe, hier findet sich der ein oder andere, der einen Nutzen darin sieht.
 
-## Functions
+## Funktionen
 
-- Automatically process videos in a folder
-- Support for external subtitle files (`.srt` and `.ass`)
-- Automatically detects audio streams in video files. Applies appropriate presets based on number and properties of audio tracks
-- Simple templates for specific FFmpeg configurations
-- Possibility to remove subtitles
-- Many comments and echoes in the script that explain where what happens, for better understanding and, if necessary, to add your own values
+- Videos in einem Ordner automatisch verarbeiten
+- Unterstützung für externe Untertiteldateien (`.srt` und `.ass`)
+- Erkennt automatisch Audiostreams in Videodateien. Wendet passende Voreinstellungen basierend auf Anzahl und Eigenschaften der Audiotracks an
+- Einfache Vorlagen für bestimmte FFmpeg-Konfigurationen
+- Möglichkeit zum Entfernen von Untertiteln
+- Viele Kommentare und Echos im Skript, die erklären wo was passiert, zum besseren nachzuvollziehen und gegebenfalls zur Ergänzung eigener Werte
 
-## Usage
+## Verwendung
 
-- If environment variables have been set under Windows, simply double-click to execute. Otherwise open via console/terminal
-- The script shows you a selection of options in a menu.
+- Wenn umgebungsvariablen unter Windows gesetzt wurden, einfach doppelklick zum ausführen. Sonst über Konsole/Terminal öffnen
+- Das Skript zeigt dir in einem Menu eine Auswahl an Optionen an.
 
-## Functionality
+## Funktionsweise
 
-[1] Transcoding
-- Works with fixed values for video, audio and subtitles.
-- You should also adjust these for yourself if necessary!
+[1] Transkodieren
+- Artbeitet mit festgelegten Werten für Video, Audio und Untertitel.
+- Diese solltest du auch bei Bedarf für dich selbst anpassen!
 
-[2] Transcoding with Auto-Audio
-- Works with fixed values for video and subtitles. Recognizes audio channels and bit rates by FFprobe and reacts with predefined values.
-- e.g. `2 channel = 224k` and `6 channel = 448k`.
-- You should also adjust these for yourself if necessary!
-- Note: It can handle `CBR` and `VBR`, but only reads out `CBR`. For `VBR` it takes predefined values.
+[2] Transkodieren mit Auto-Audio
+- Arbeitet mit festgelegten Werten für Video und Untertitel. Erkennt Audiokkanäle und -bitraten durch FFprobe und reagiert mit vorher festgelegten Werten.
+- z.B. `2 Kanal = 224k` und `6 Kanal = 448k`
+- Diese solltest du auch bei Bedarf für dich selbst anpassen!
+- Anmerkung: Es kann mit `CBR` und `VBR` umgehen, aber nur `CBR` auslesen. Bei `VBR` nimmt es vordefinierte Werte.
 
-[3] Apply templates
-- Uses predefined templates for special use cases
+[3] Vorlagen anwenden
+- Verwendet Vordefinierte Vorlagen für Spezielle Anwendungsfälle
 
-[4] Remove subtitles
-- Removes all subtitles, video and audio is copied and metadata is not touched.
+[4] Untertitel entfernen
+- Entfern stumpf alle Untertitel, Video und Audio wird kopiert und Metadaten werden nicht angefasst.
 
-[5] Exit (CTRL+C)
-- Exits the script. You can also press `CTRL+C` anytime and anywhere to end the script.
+[5] Beenden  (STRG+C)
+- Beendet das Skript. Man kann auch jederzeit und überall `STRG+C` drücken um das Skript zu beendet.
 
-[6] Shutdown and pause
-- The script checks whether certain files are present in order to automatically shut down the PC or terminate the script.
-- Pause: If there is a `pause.txt` in the folder, the script terminates itself after the current processing has been completed. Can be easily created in the folder at any time.
-- Shutdown: If there is a `shutdown.txt` in the folder, it shuts down the PC after the current processing has been completed. Can be easily created in the folder at any time.
-- For a more detailed procedure, see the whole script below under the headings `# SHUTDOWN` and `# PAUSE`.
+[6] Herunterfahren und Pause
+- Das Skript prüft, ob bestimmte Dateien vorhanden sind, um automatisch den PC herunterzufahren oder das Skript zu beenden.
+- Pause: Wenn eine `pause.txt` im Ordner liegt, beendet das Skript nach Abschluss der aktuellen Verarbeitung sich von alleine. Kann jederzeit einfach im Ordner erstellt werden.
+- Herunterfahren: Wenn ein `shutdown.txt` im Ordner liegt, fährt es den PC nach Abschluss der aktuellen Verarbeitung herunter. Kann jederzeit einfach im Ordner erstellt werden.
+- Zum genaueren Ablauf siehe ganze unten im Skript unter der Überschrift `# SHUTDOWN` und `# PAUSE`.
 
-## Customization 
+## Anpassung 
 
-- The script must be in the same folder as the videos to be edited.  
-- Subtitle files must have the same name as the video.
+- Das Skript muss im gleichen Ordner liegen wie die zu bearbeitenden Videos.  
+- Untertiteldateien müssen den gleichen Namen wie das Video inne haben.
 
-[1] Transcode
-- CRF, bit rate and metadata are adjusted at the top of the script.
-- The order of the subtitles is defined in the variable i_files: 
- `""i_files=(-i "${srt_files[0]}" -i "${srt_files[1]}" -i "${ass_files[0]}")""`
-- Recommended structure and naming is:
+[1] Transcodieren
+- CRF, Bitrate und Metadaten werden im Skript ganz oben angepasst.
+- Die Reihenfolge der Untertitel ist in der Variable i_files geregelt:  
+  `""i_files=(-i "${srt_files[0]}" -i "${srt_files[1]}" -i "${ass_files[0]}")""`  
+- Empfohlene Struktur und Benennung ist:
 
 ```
 /MyFolder
- ├── !FFMPEG beta1.sh
- ├── video1.mkv
- ├── video1.FORCED.srt
- ├── video1.FULL.srt
- ├── video1.FULL.ass
+  ├── !FFMPEG beta1.sh
+  ├── video1.mkv
+  ├── video1.FORCED.srt
+  ├── video1.FULL.srt
+  ├── video1.FULL.ass
 ```
 
-[2] Transcoding with Audo-Audio
-- The same as [1] except that you have to adjust the audio here:
-- `auto_bit_2=“224”`
-- `auto_bit_6=“448”`
+[2] Transcodieren mit Audo-Audio
+- Das gleiche wie bei [1] nur, das man Audio hier anpassen muss:
+-	`auto_bit_2="224"`
+-	`auto_bit_6="448"`
 
-[3] Templates
-- A few examples are given, use them as a guide.
-- The most important thing to get picture, sound and, if necessary, text into the video file are:
+[3] Vorlagen
+- Ein paar Beispiele sind vorgegeben, orientiere dich daran.
+- Das wichtigste um Bild, Ton und gegebenfalls Text in die Videodatei zu bekommen sind:
 
 ```
--map 0:v		# uses video track
--map 0:a		# uses audio
--map 0:s 		# uses subtitles
--c:v libx265		# Transcoded to h265
--c:a eac3		# Transcodes to E-AC3
--b:a 224k		# Takes a constant audio bitrate (CBR) of 224k
--ac 2			# 2 channel stands for stereo, 6 would be for 5.1
--c:s srt		# Transcodes the subtitle to srt format
+-map 0:v		# nutzt Videospur
+-map 0:a		# nutzt Audio
+-map 0:s 		# nutzt Untertitel
+-c:v libx265		# Transkodiert zu h265
+-c:a eac3		# Transkodiert zu E-AC3
+-b:a 224k		# Nimmt eine konstante Audiobitrate (CBR) von 224k
+-ac 2			# 2 Kanal steht für Stereo, 6 wäre für 5.1
+-c:s srt		# Transcodiert den Untertitel in das srt-Format
 ```
 
-[4] Remove subtitles
-- Only uses `-map 0:v -map 0:s -c:v copy -c:a copy` and thus copies all video and audio tracks, nothing more.
+[4] Untertitel entfernen
+- Benutzt nur `-map 0:v -map 0:s -c:v copy -c:a copy` und kopiert somit alle Video- und Audiospuren, mehr nicht.
 
-[5] Exit
-- Self-explanatory. Press 5 and confirm with Enter. Or press `STRG+C` once.
+[5] Beenden
+- Selbsterklärend. 5 drücken und mit Enter bestätigen. Oder 1x `STRG+C` drücken.
 
-## Requirements, recommendations and notes
+## Voraussetzungen, Empfehlungen und Anmerkungen
 
-- FFmpeg must be installed. Environment variables may need to be set.
+- FFmpeg muss installiert sein. Umgebungsvariablen müssen eventuell gesetzt werden.
 - Git (https://git-scm.com/downloads)
- 
-- For editing under Windows I recommend: https://notepad-plus-plus.org/downloads/
-- Subtitles are best edited with SubtitleEdit: https://www.nikse.dk/subtitleedit
-- You can read out your video files with MediaInfo: https://mediaarea.net/en/MediaInfo
-- Powerful tool for editing video files: https://handbrake.fr/
-- Also a very practical tool to manage your videos: https://mkvtoolnix.download/
+- Zur Bearbeitung unter Windows empfehle ich: https://notepad-plus-plus.org/downloads/
+- Funktioniert theoretisch auch unter Linux und Mac, praktisch habe ich es nur unter Windows getestet!
+- Untertitel bearbeitet man am besten mit SubtitleEdit: https://www.nikse.dk/subtitleedit
+- Seine Videodateien kann man mit MediaInfo auslesen: https://mediaarea.net/en/MediaInfo
 
-- Tested on Windows. Theoretically also works on Linux and macOS.
+- Mächtiges Werkzeug zum bearbeiten von Videodateien: https://handbrake.fr/
+- Auch sehr oraktisches Werkzeug um seine Videos zu handhaben: https://mkvtoolnix.download/
 
-## License
+## Lizenz
 
-MIT - freely usable, modifiable and shareable.
+MIT – frei verwendbar, veränderbar und teilbar.
