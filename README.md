@@ -70,14 +70,14 @@ It is still under construction but works so far. English Script comming soon.
  ├── video1.FULL.ass
 ```
 
-[2] Transcodieren mit Audo-Audio
-- Das gleiche wie bei [1] nur, das man Audio hier anpassen muss:
-- `auto_bit_2="224"`
-- `auto_bit_6="448"`
+[2] Transcoding with Audo-Audio
+- The same as [1] except that you have to adjust the audio here:
+- `auto_bit_2=“224”`
+- `auto_bit_6=“448”`
 
-[3] Vorlagen
-- Ein paar Beispiele sind vorgegeben, orientiere dich daran.
-- Das wichtigste um Bild, Ton und gegebenfalls Text in die Videodatei zu bekommen sind:
+[3] Templates
+- A few examples are given, use them as a guide.
+- The most important thing to get picture, sound and, if necessary, text into the video file are:
 
 ```
 -map 0:v		# uses video track
