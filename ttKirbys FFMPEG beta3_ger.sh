@@ -5,9 +5,6 @@
 	# Videoqualität
 	crf="20"
 
-	# Wie viele Audiokanäle behandelt werden sollen		# nur zur Deko
-	# cha_num="2"
-
 	# Audiobitrate - 2 Kanal und 6 Kanal
 	bit_2="224"
 	bit_6="448"
@@ -19,19 +16,6 @@
 	# Audiokanäle - "stereo" für 2 Kanal und "5.1" für 6 Kanal
 	audio_channe0="stereo"
 	audio_channe1="5.1"
-
-	# Metadata: Sprache (für Audio und Untertitel)		# nur zur Deko
-	# lang_1="ger"
-	# lang_2="ja"
-
-	# Metadata: Audio									# nur zur Deko
-	# title_audio1="Stereo"
-	# title_audio2="Surround"
-
-	# Metadata: Untertitel								# nur zur Deko
-	# title_forced="Forced"
-	# title_full="Full"
-
 
 trap 'echo -e "\nAbbruch durch Benutzer."; exit 1' INT
 
@@ -416,113 +400,3 @@ do
 	fi
 done
 read -p "Drücke Enter zum Beenden..."
-
-#HILFE 1
-# 		FFMPEG BEFEHLE!!!
-#
-#		-ss beginnt bei // -t verarbeitet nur 15 sekunden // muss vor und nach filenames
-#		gut zum testen der stapelverarbeitung
-#		-ss 00:01:00 \
-#		-i "$filename" \
-#		"${i_files[@]}" \
-#		-t 00:00:15 \
-#
-#		nutzt alle 16 kerne
-#		-threads 16 \
-#
-#		skaliert auf 720p	
-#		-vf scale=-1:720 \
-#
-#		für animationen
-#		-tune animation \
-#
-#		nvidia hardware acceleration (sehr, sehr viel schneller aber ausgabedatei ist größer)
-#		VOR -i PARAMETER SETZEN
-#		-hwaccel auto \
-#
-#		transcodiert zu srt-untertitel
-#		-c:s srt \
-#
-#		convertieren zu x265 mit qualität 20
-#		-c:v libx265 \
-#		-crf 20 \
-#
-#		-b:v 2000k \
-#		-q:v 2 \
-#
-#		convertieren zu E-AC3, 224/448 BIT, 2/6 tonspuren
-#		-c:a eac3 \
-#		-b:a 224k \
-#		-ac 2 \
-#
-#		-c:a eac3 \
-#		-b:a 448k \
-#		-ac 6 \
-#
-#		wenn zwei verschiedene tonspuren, erste 2, zweite 6 kanal (klingt verwirrend ist aber anscheinend so.)
-#		siehe nächster abschnitt bei -filter
-#		-c:a eac3 \
-#		-b:a 224k \
-#		-ac:1 2 \
-#		-c:a:1 eac3 \
-#		-b:a:1 448k \
-#		-ac:0 6 \
-#
-#		statt -ac nutzen wenn man mehr als eine adudiospur behandelt
-#		-filter:a:0 aformat=channel_layouts=stereo
-#		-filter:a:0 aformat=channel_layouts=5.1
-#
-#		standard (default) an
-#		-disposition:v:0 default \
-#		-disposition:a:0 default \
-#		-disposition:s:0 default \
-#		standard (default) aus
-#		-disposition:v:1 -default \
-#		-disposition:a:1 -default \	
-#		-disposition:s:1 -default \	
-#
-#		alle videospuren
-#		map 0:v
-#		nur erste videospur
-#		map 0:v:0
-#		nur zweite videospur
-#		map 0:v:1
-#
-#		kopiert ohne neu zu codieren
-#		-c:v copy
-#		-c:a copy
-#		-c:s copy
-#
-#		tauscht stream 1 mit 2 oder andersrum
-#		-map 0:a:1 -map 0:a:0 \
-#		-map 0:s:1 -map 0:s:0 \
-#		wählt nicht die hauptdatei, sondern eine zweite datei. wie es oben bei srt- und ass-utnertiteln gemacht wird.
-#		-map 1 \
-#		-map 2 \
-#
-#		zum umbenennen der jeweiligen spuren
-#		-metadata:s:v:0 title="" \
-#
-#		-metadata:s:a:0 "language=ger" \
-#		-metadata:s:a:0 title="Stereo" \
-#		-metadata:s:a:1 "language=ja" \
-#		-metadata:s:a:1 title="Surround" \
-#
-#		-disposition:a:0 default \
-#		-disposition:a:1 -default \
-#		-metadata:s:s:0 "language=ger" \
-#		-metadata:s:s:0 title="Forced" \
-#		-metadata:s:s:1 title="Full" \
-
-#HILFE 2
-#	BASH BEFEHLE
-#
-#	-lt	less than (<)
-#	-le	less or equal (≤)
-#	-eq	equal (=)
-#	-ne	not equal (≠)
-#	-gt	greater than (>)
-#	-ge	greater or equal (≥)
-#
-#	sleep 3		wartet 3 sekunden bis es weiter geht
-#	exit 1		schließt in 1 sekunde das fenster
