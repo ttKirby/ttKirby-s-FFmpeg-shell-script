@@ -1,7 +1,7 @@
 # ttKirby's-FFmpeg-Shell-Script
 
-Es ist noch im Aufbau aber funktioniert soweit.
-Ein großes Update ist unterwegs, es wird aber noch ein Weilchen dauern.
+- Es ist noch im Aufbau aber funktioniert soweit.
+- Ein großes Update ist unterwegs, es wird aber noch ein Weilchen dauern.
 
 ## Vorstellung
 
