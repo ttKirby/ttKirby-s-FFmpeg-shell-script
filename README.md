@@ -1,15 +1,20 @@
 # ttKirby's-FFmpeg-Shell-Script
 
+- EIN KLEINER VORGESCHMACK auf beta4 AUCH WENN DIESES SKRIPT NOCH NIEMAND KENNT!!! :D
+- README NOCH NICHT ANGEPASST, KOMMT WENN DIE NEUE VERSION FERTIG IST!
+  
 - Es ist noch im Aufbau aber funktioniert soweit.
 - Ein großes Update ist unterwegs, es wird aber noch ein Weilchen dauern.
 - - Es enthält einige Bugfixes, Codeoptimierung, schmeißt Redundantes raus und hat große Neuerungen, wobei die Grundfunktion des Skriptes sich kaum verändert.
 
+
 ## Vorstellung
 
-- Hier ein einfaches Shell-Skript zur Stapelverarbeitung von Videodateien mit FFmpeg.
+- Hier ein Shell-Skript zur Stapelverarbeitung von Videodateien mit FFmpeg.
 - Das Skript durchsucht den aktuellen Ordner nach `.mkv`, `.mp4` und `.avi`-Dateien und bietet die Möglichkeit externe Untertitel-Dateien einzubinden.
 - Es durchläuft alle Videos im Ordner, arbeitet mit Variablen udn Arrays und fragt einen was gemacht werden soll.
-- Dieses Skript basiert entfernt auf dem eines Freundes. Viel erfahrung im schreiben von Skripten habe ich nicht, dies hier ist mein erstes mit größerem Umfang, aber ich hoffe, hier findet sich der ein oder andere, der einen Nutzen darin sieht.
+- Dieses Skript basiert sehr wage auf dem eines Freundes(VERLINKUNG). Viel Erfahrung im schreiben von Skripten habe ich nicht. Dies hier ist mein Erstes mit größerem Umfang, aber ich würde mcih freuen, wenn der ein oder andere einen Nutzen darin findet.
+- Es ist hauptsächlich auf meine Bedürfnisse angepasst, darum kann es sein das man hier und da auf eine Grenze stößt.
 
 ## Funktionen
 
@@ -18,7 +23,7 @@
 - Erkennt automatisch Audiostreams in Videodateien. Wendet passende Voreinstellungen basierend auf Anzahl und Eigenschaften der Audiotracks an
 - Einfache Vorlagen für bestimmte FFmpeg-Konfigurationen
 - Möglichkeit zum Entfernen von Untertiteln
-- Viele Kommentare und Echos im Skript, die erklären wo was passiert, zum besseren nachzuvollziehen und gegebenfalls zur Ergänzung eigener Werte
+- Viele Kommentare und Echos im Skript, die erklären wo was passiert, zum besseren nachvollziehen und gegebenfalls zur Ergänzung eigener Werte
 
 ## Verwendung
 
@@ -27,29 +32,25 @@
 
 ## Funktionsweise
 
-[1] Transkodieren
-- Artbeitet mit festgelegten Werten für Video, Audio und Untertitel.
-- Diese solltest du auch bei Bedarf für dich selbst anpassen!
-
-[2] Transkodieren mit Auto-Audio
+[1] Transkodieren mit Auto-Audio
 - Arbeitet mit festgelegten Werten für Video und Untertitel. Erkennt Audiokkanäle und -bitraten durch FFprobe und reagiert mit vorher festgelegten Werten.
 - z.B. `2 Kanal = 224k` und `6 Kanal = 448k`
 - Diese solltest du auch bei Bedarf für dich selbst anpassen!
 - Anmerkung: Es kann mit `CBR` und `VBR` umgehen, aber nur `CBR` auslesen. Bei `VBR` nimmt es vordefinierte Werte.
 
+[2] Untertitel entfernen
+- Entfern stumpf alle Untertitel, Video und Audio wird kopiert und Metadaten werden nicht angefasst.
+
 [3] Vorlagen anwenden
 - Verwendet Vordefinierte Vorlagen für Spezielle Anwendungsfälle
 
-[4] Untertitel entfernen
-- Entfern stumpf alle Untertitel, Video und Audio wird kopiert und Metadaten werden nicht angefasst.
-
-[5] Beenden  (STRG+C)
+[0] Beenden  (STRG+C)
 - Beendet das Skript. Man kann auch jederzeit und überall `STRG+C` drücken um das Skript zu beendet.
 
 [6] Herunterfahren und Pause
 - Das Skript prüft, ob bestimmte Dateien vorhanden sind, um automatisch den PC herunterzufahren oder das Skript zu beenden.
-- Pause: Wenn eine `pause.txt` im Ordner liegt, beendet das Skript nach Abschluss der aktuellen Verarbeitung sich von alleine. Kann jederzeit einfach im Ordner erstellt werden.
-- Herunterfahren: Wenn ein `shutdown.txt` im Ordner liegt, fährt es den PC nach Abschluss der aktuellen Verarbeitung herunter. Kann jederzeit einfach im Ordner erstellt werden.
+- Pause: Wenn eine `pause.txt` im Ordner liegt, beendet das Skript nach Abschluss der aktuellen Verarbeitung sich von alleine. Kann jederzeit im Ordner erstellt werden.
+- Herunterfahren: Wenn ein `shutdown.txt` im Ordner liegt, fährt es den PC nach Abschluss der aktuellen Verarbeitung herunter. Kann jederzeit im Ordner erstellt werden.
 - Zum genaueren Ablauf siehe ganze unten im Skript unter der Überschrift `# SHUTDOWN` und `# PAUSE`.
 
 ## Anpassung 
@@ -57,7 +58,7 @@
 - Das Skript muss im gleichen Ordner liegen wie die zu bearbeitenden Videos.  
 - Untertiteldateien müssen den gleichen Namen wie das Video inne haben.
 
-[1] Transcodieren
+[1] Transcodieren mit Auto-Audio
 - CRF, Bitrate und Metadaten werden im Skript ganz oben angepasst.
 - Die Reihenfolge der Untertitel ist in der Variable i_files geregelt:  
   `""i_files=(-i "${srt_files[0]}" -i "${srt_files[1]}" -i "${ass_files[0]}")""`  
@@ -72,10 +73,8 @@
   ├── video1.FULL.ass
 ```
 
-[2] Transcodieren mit Audo-Audio
-- Das gleiche wie bei [1] nur, das man Audio hier anpassen muss:
--	`auto_bit_2="224"`
--	`auto_bit_6="448"`
+[2] Untertitel entfernen
+- Benutzt nur `-map 0:v -map 0:s -c:v copy -c:a copy` und kopiert somit alle Video- und Audiospuren, mehr nicht.
 
 [3] Vorlagen
 - Ein paar Beispiele sind vorgegeben, orientiere dich daran.
@@ -92,11 +91,8 @@
 -c:s srt		# Transcodiert den Untertitel in das srt-Format
 ```
 
-[4] Untertitel entfernen
-- Benutzt nur `-map 0:v -map 0:s -c:v copy -c:a copy` und kopiert somit alle Video- und Audiospuren, mehr nicht.
-
-[5] Beenden
-- Selbsterklärend. 5 drücken und mit Enter bestätigen. Oder 1x `STRG+C` drücken.
+[0] Beenden
+- Selbsterklärend. 0 drücken und mit Enter bestätigen oder 1x `STRG+C` drücken.
 
 ## Voraussetzungen, Empfehlungen und Anmerkungen
 
