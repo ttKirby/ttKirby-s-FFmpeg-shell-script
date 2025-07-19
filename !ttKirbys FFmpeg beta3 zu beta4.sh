@@ -5,29 +5,18 @@ trap 'echo -e "\nAbbruch durch Benutzer."; exit 1' INT
 ## Hier deine Werte für das Transcodieren eingeben.
 
 	# Videoqualität
+	crf=""		# BITTE LEER LASSEN!!! Wert wird geleert um Fehler zu vermeiden
 	crf="20"
 
-	# Wie viele Audiokanäle behandelt werden sollen		# nur zur Deko
-	# cha_num="2"
-
 	# Audiocodec (z.B. ac3, eac3, dts, flac)
+	codec_a=""	# BITTE LEER LASSEN!!! Wert wird geleert um Fehler zu vermeiden
 	codec_a="eac3"
 
 	# Audiobitrate - 2 Kanal und 6 Kanal
+	bit_2=""	# BITTE LEER LASSEN!!! Wert wird geleert um Fehler zu vermeiden
+	bit_6=""	# BITTE LEER LASSEN!!! Wert wird geleert um Fehler zu vermeiden
 	bit_2="224"
 	bit_6="448"
-	
-	# Metadata: Sprache (für Audio und Untertitel)		# nur zur Deko
-	# lang_1="ger"
-	# lang_2="ja"
-
-	# Metadata: Audio									# nur zur Deko
-	# title_audio1="Stereo"
-	# title_audio2="Surround"
-
-	# Metadata: Untertitel								# nur zur Deko
-	# title_forced="Forced"
-	# title_full="Full"
 
 ## Hauptskript
 
@@ -220,12 +209,10 @@ do
 		metadata_s_0=""
 		metadata_s_1=""
 		metadata_s_2=""
-		# cha_num="" # wird weiter oben schon geleert, nur zur Vervöllständigung vorrübergehend hier hier
 		i_files=()
 
-		# Hier handelt es sich um "Arrays" und eine "Variable". Diese sind unter der automatischen Erkennung und Sortierung zu finden.
+		# Hier handelt es sich um "Arrays". Diese sind unter der automatischen Erkennung und Sortierung zu finden.
 		map_audio=()
-		codec_a=""			# Variable, weil es zu Auto-Audio gehört
 		codec_audio=()
 		channels_audio=()
 		title_audio=()
@@ -376,10 +363,8 @@ do
 
 ## FFmpeg Befehl 
 		ffmpeg \
-		-ss 00:03:00 \
 		-i "$filename" \
 		"${i_files[@]}" \
-		-t 00:00:30 \
 		-metadata title="$title" \
 		-metadata:s:v:0 title="" \
 		$map_video \
