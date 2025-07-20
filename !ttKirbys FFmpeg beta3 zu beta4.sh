@@ -228,7 +228,7 @@ do
 		}
 
 ## Transkodieren
-		if [[ "$choice" == "1" ]]; then
+		if [[ "$choice" == "1" || "$choice" == "11" ]]; then
 			if [ ${#srt_files[@]} -eq 0 ] && [ ${#ass_files[@]} -eq 0 ]; then										# 0 SRT & 0 ASS
 				echo -e "${YELLOW}Keine Untertiteldateien gefunden.${RESET}"
 				transcode1
@@ -280,7 +280,7 @@ do
 ## Auto-Reihenfolge
 
 ## Metadata und Audiobitrate
-		if [[ "$choice" == "1" ]]; then
+		if [[ "$choice" == "1" || "$choice" == "11" ]]; then
 			audio_count=$(ffprobe -v error -select_streams a -show_entries stream=index -of csv=p=0 "$filename" | wc -l)
 			if (( audiochannel > 0 )); then
 				audio_count=${cha_num}
