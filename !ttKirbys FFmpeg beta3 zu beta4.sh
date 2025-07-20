@@ -25,7 +25,7 @@ echo "$WORKINGDIR"
 PAUSEFILE=pause.txt
 SHUTDOWNFILE=shutdown.txt
 
-### Output destination
+### Zielpfad
 
 path="$(pwd)/output"
 #path="Y:\MKVnew"
