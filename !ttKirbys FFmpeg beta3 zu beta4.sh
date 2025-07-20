@@ -4,19 +4,19 @@ trap 'echo -e "\nAbbruch durch Benutzer."; exit 1' INT
 
 ### Hier deine Werte für das Transcodieren eingeben.
 
-	# Video quality
+	# Videoqualität
 	config_crf="20"
 
-	# Video codec			(e.g. copy, libx264, libx265, mpeg4, rawvideo)
+	# Videocodec		(e.g. copy, libx264, libx265, mpeg4, rawvideo)
 	config_video_codec="libx265"
 
-	# Audio codec			(e.g. copy, aac, ac3, eac3, flac)
+	# Audiocodec		(e.g. copy, aac, ac3, eac3, flac)
 	config_audio_codec="eac3"
 
-	# Audio bitrate			(2 and 6 channels)
+	# Audiobitrate		(2 Kanal und 6 Kanal)
 	config_audio_bitrate_stereo="224"
 	config_audio_bitrate_surround="448"
-	
+
 ### Hauptskript
 
 WORKINGDIR="$(pwd -W)"
