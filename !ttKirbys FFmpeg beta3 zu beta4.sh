@@ -17,18 +17,6 @@ trap 'echo -e "\nAbbruch durch Benutzer."; exit 1' INT
 	config_audio_bitrate_stereo="224"
 	config_audio_bitrate_surround="448"
 	
-	# Metadata: Sprache (für Audio und Untertitel)		# nur zur Deko
-	# lang_1="ger"
-	# lang_2="ja"
-
-	# Metadata: Audio									# nur zur Deko
-	# ff_audio_metadata_title1="Stereo"
-	# ff_audio_metadata_title2="Surround"
-
-	# Metadata: Untertitel								# nur zur Deko
-	# title_forced="Forced"
-	# title_full="Full"
-
 ### Hauptskript
 
 WORKINGDIR="$(pwd -W)"
