@@ -1,0 +1,36 @@
+#########################################################
+         Beispiel-Vorlage – bitte NICHT löschen!
+ Diese Datei dient als Strukturreferenz für neue Presets
+#########################################################
+
+# Allgemeine Schalter		# Wenn nicht in Verwendung einfach die Werte auf False stellen oder Zeilen löschen.
+SWITCH_1=true
+SWITCH_2=true
+
+# Variablen & Arrays		# Wenn nicht in Verwendung einfach die Werte leer lassen oder Zeilen löschen.
+ff_map_files=""
+ff_map_video=""
+ff_tune_animation=""
+ff_map_subtitle_type=""
+ff_audio_metadata_0=""
+ff_audio_metadata_1=""
+ff_audio_metadata_2=""
+ff_subtitle_metadata_0=""
+ff_subtitle_metadata_1=""
+ff_subtitle_metadata_2=""
+ff_map_input_subtitle=()
+ff_map_audio=()
+ff_audio_codec=()
+ff_audio_channel=()
+ff_audio_metadata_title=()
+ff_audio_bitrate=()
+
+# Rohbefehle				# WICHTIG! Die "" vor und nach den FFmpeg-Befehlen sind essenziell!
+ffmpeg_args="
+-map 0:v:0
+-map 0:a:0
+-map 0:a:1
+-c:v copy
+-c:a copy
+-metadata:s:a:1 title=5.1
+"
