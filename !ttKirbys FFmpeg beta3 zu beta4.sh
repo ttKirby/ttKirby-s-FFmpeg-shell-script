@@ -11,6 +11,7 @@
 # 	automatische zuordnung von tonspuren. man hat dann auch die wahl um tonspuir 1 und 2 zu tauschen (kann eignetlich in vorlagen, mal gucken)
 # resi verlinken https://github.com/resi23
 # per preset auf die audio und spracherkennung zugreifen
+# untertitel entfernen kann eigentlich in presets, mal gucken
 
 # NEUERUNGEN UND FEHLERBEHEBUNG (alles richtig testen steht noch aus!)
 #
