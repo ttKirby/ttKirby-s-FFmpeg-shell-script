@@ -27,6 +27,8 @@
 # optimierung des codes. weniger verzweigungen, zusammenfassung einiger codeblöcke und redundantes entfernt.
 # presets haben nun deutlich mehr funktionen
 #	können schalter aktivieren, variablen und arrays nutzen und rohbefehle vonf fmpeg nutzen
+# einige kommentar-überschriften etwas klarer gestaltet
+#
 
 ### Hier deine Werte für das Transcodieren eingeben.
 	# Videoqualität
