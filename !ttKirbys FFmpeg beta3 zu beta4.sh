@@ -1,9 +1,33 @@
 #!/bin/bash
 
-trap 'echo -e "\nAbbruch durch Benutzer."; exit 1' INT
+# GEPLANT
+#
+# neuer name für auto audio/metadata/reihenfolge-sonstwas
+# farben neu überdenken.
+# ein paar Vorlagen bereitstellen
+# 	untertitel hinzufügen ohne transkodieren
+# 	die wahl einen untertitel im videofile zu wählen/mitzunehmen
+# metadata sprache automatisch erkennen und in richtige reihenfolge bringen
+# 	automatische zuordnung von tonspuren. man hat dann auch die wahl um tonspuir 1 und 2 zu tauschen (kann eignetlich in vorlagen, mal gucken)
+# resi verlinken https://github.com/resi23
+# per preset auf die audio und spracherkennung zugreifen
+
+# NEUERUNGEN UND FEHLERBEHEBUNG (alles richtig testen steht noch aus!)
+#
+# presets in unterordner
+# nur noch auto audio. bitrate und andere werte justierbar in configdatei
+# confing.ini hinugefügt für die benutzerfreundlichkeit
+# probleme mit der anzahl der audiospuren (wurde durch neues verfahren ersetz)
+#	 man kann nun wählen wie viele audiospuren behandelt werden sollen per eingabe mit einer zahl
+#	 bei falscher eingabe werden menu-abfragen noch mal gestellt anstatt das skript zu beenden
+# neue variablen und deklarierungen für bessere übersicht
+# umbenennung der variablen für bessere übersicht und logik.
+# wenn ff vor der variable steht, werden sie direkt im ffmpeg befehl landen. 
+# optimierung des codes. weniger verzweigungen, zusammenfassung einiger codeblöcke und redundantes entfernt.
+# presets haben nun deutlich mehr funktionen
+#	können schalter aktivieren, variablen und arrays nutzen und rohbefehle vonf fmpeg nutzen
 
 ### Hier deine Werte für das Transcodieren eingeben.
-
 	# Videoqualität
 	config_crf="20"
 
@@ -17,34 +41,52 @@ trap 'echo -e "\nAbbruch durch Benutzer."; exit 1' INT
 	config_audio_bitrate_stereo="224"
 	config_audio_bitrate_surround="448"
 
-### Hauptskript
+	# Metadata: Sprache (für Audio und Untertitel)		# nur zur Deko
+	# lang_1="ger"
+	# lang_2="ja"
 
-WORKINGDIR="$(pwd -W)"
-echo ""
-echo "$WORKINGDIR"
-PAUSEFILE=pause.txt
-SHUTDOWNFILE=shutdown.txt
+	# Metadata: Audio									# nur zur Deko
+	# ff_audio_metadata_title1="Stereo"
+	# ff_audio_metadata_title2="Surround"
 
-### Zielpfad
+	# Metadata: Untertitel								# nur zur Deko
+	# title_forced="Forced"
+	# title_full="Full"
 
-path="$(pwd)/output"
-#path="Y:\MKVnew"
+### Umgebungsinitialisierung
+	## Arbeitsverzeichnis
+		WORKINGDIR="$(pwd -W)"
+		echo ""
+		echo "$WORKINGDIR"
 
-eingespartemb=0
-counter=0
-mkdir -p "$path"
+	## Steuerdateien
+		PAUSEFILE=pause.txt
+		SHUTDOWNFILE=shutdown.txt
 
-shopt -s nullglob
+	## Zielordner für AUsgabe (wird automatisch erstellt falls nicht vorhanden)
+		path="$(pwd)/output"
+		#path="Y:\MKVnew"
 
-## Farben definieren
-RED="\e[31m"
-ORANGE="\e[33m"
-YELLOW="\e[93m"
-GREEN="\e[32m"
-CYAN="\e[36m"
-RESET="\e[0m"
-BOLD="\e[1m"		# Fettgedruckt
-NORMAL="\e[22m"		# Deaktiviert Fettgedruckt
+	## Fortschrittszähler und Speicherersparnis
+		eingespartemb=0
+		counter=0
+		mkdir -p "$path"
+
+	## Verhindert Fehler, wenn gerade keine passenden Dateien gefunden werden
+		shopt -s nullglob
+
+	## Benutzer-Abbruch durch STRG+C
+		trap 'echo -e "\nAbbruch durch Benutzer."; exit 1' INT
+
+### Farben definieren
+	RED="\e[31m"
+	ORANGE="\e[33m"
+	YELLOW="\e[93m"
+	GREEN="\e[32m"
+	CYAN="\e[36m"
+	BOLD="\e[1m"		# Fettgedruckt
+	NORMAL="\e[22m"		# Deaktiviert Fettgedruckt
+	RESET="\e[0m"		# Stellt wieder auf Standard
 
 ### Wenn config.ini existiert, lade sie und evaluiere ihren Inhalt
 if [[ -f "config.ini" ]]; then
@@ -57,7 +99,7 @@ else
 	clear
 fi
 
-### Startmenü anzeigen
+### Menu - Startmenü anzeigen
 echo -e "${CYAN}${BOLD}"
 echo -e "╔══════════════════════════════════════════════════════════════════════════════╗"
 echo -e "║${NORMAL} Wähle Verarbeitungsweg                 ${BOLD}║"
@@ -82,7 +124,7 @@ while true; do
     fi
 done
 
-### Audiospuren
+### Menu - Audiospuren eingeben
 if [[ "$choice" == "1" || "$choice" == "11" ]]; then
     echo -e "${CYAN}${BOLD}"
     echo -e "╔════════════════════════════════════════╗"
@@ -148,7 +190,13 @@ if [[ "$choice" == "3" ]]; then
 			echo -e "${CYAN}Du hast gewählt: ${BOLD}$(basename "$preset_datei")${RESET}"
 			echo ""
 			# FFmpeg-Befehl aus Datei laden
-			ff_preset=$(<"$preset_datei")
+			source "$preset_datei"
+			# eval "ff_preset=\"$ffmpeg_args\""
+# Mehrzeilige Argumente in eine Zeile umwandeln (falls ffmpeg_args mit """ definiert wurde)
+ffmpeg_args=$(echo "$ffmpeg_args" | tr '\n' ' ')
+eval "ff_preset=\"$ffmpeg_args\""
+
+
 			echo -e "${YELLOW}FFmpeg-Befehl: ${RESET}$ff_preset"
 
 			break  # <-- Hier Schleife verlassen
@@ -160,6 +208,18 @@ if [[ "$choice" == "3" ]]; then
 		fi
 	done
 fi
+
+### Vorlagen Schaltplan
+if [[ "$SWITCH_1" == true ]]; then
+    preset_switch_01=true
+	preset_switch_02=false
+	echo "Ich bin eine Probeausgabe und habe keinen Nutzen!"
+fi
+if [[ "$SWITCH_2" == true ]]; then
+    preset_switch_02=true
+	echo "Ich bin eine Probeausgabe und habe keinen Nutzen!"
+fi
+
 
 ### Zum Beenden des Skriptes
 if [[ "$choice" == "0" || "$preset" == "0" ]]; then
@@ -192,7 +252,6 @@ do
 
 	echo ""
 
-### FFmpeg Hauptschleife
 ### Initialisierung & Typdefinition:
 	##  Hier werden die Werte der persönlichen Konfiguration geleert um gravierende Fehler zu vermeiden.
 		config_crf=""
@@ -396,12 +455,13 @@ do
 		ff_map_audio="-map 0:a -c:a copy"
 	fi
 
-### FFmpeg Befehl 
+### FFmpeg Hauptbefehl
 	ffmpeg \
 	-ss 00:03:00 \
 	-i "$filename" \
 	"${ff_map_input_subtitle[@]}" \
 	-t 00:00:15 \
+	$ff_preset \
 	-metadata title="$title" \
 	-metadata:s:v:0 title="" \
 	$ff_map_video \
@@ -419,7 +479,6 @@ do
 	$ff_subtitle_metadata_0 \
 	$ff_subtitle_metadata_1 \
 	$ff_subtitle_metadata_2 \
-	$ff_preset \
 	"$new_filename"
 
 
