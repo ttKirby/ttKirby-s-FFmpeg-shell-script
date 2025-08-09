@@ -2,6 +2,7 @@
 
 # GEPLANT
 #
+# diew ahl ob 5.1 auch wenns erkannt wird zu stereo kodiert wird
 # neuer name für auto audio/metadata/reihenfolge-sonstwas
 # farben neu überdenken.
 # ein paar Vorlagen bereitstellen
@@ -10,7 +11,8 @@
 # metadata sprache automatisch erkennen und in richtige reihenfolge bringen
 # 	automatische zuordnung von tonspuren. man hat dann auch die wahl um tonspuir 1 und 2 zu tauschen (kann eignetlich in vorlagen, mal gucken)
 # resi verlinken https://github.com/resi23
-# per preset auf die audio und spracherkennung zugreifen
+# per preset auf die audio und spracherkennung zugreifen können
+# auswählen, welche audiospuren man wählen möchte (z.B. 0 und 2 aber nicht 1)
 # untertitel entfernen kann eigentlich in presets, mal gucken
 
 # NEUERUNGEN UND FEHLERBEHEBUNG (alles richtig testen steht noch aus!)
@@ -257,10 +259,10 @@ do
 
 ### Initialisierung & Typdefinition:
 	##  Hier werden die Werte der persönlichen Konfiguration geleert um gravierende Fehler zu vermeiden.
-		config_crf=""
-		config_audio_codec=""
-		config_audio_bitrate_stereo=""
-		config_audio_bitrate_surround=""
+		# config_crf=""
+		# config_audio_codec=""
+		# config_audio_bitrate_stereo=""
+		# config_audio_bitrate_surround=""
 
 	## Transkodierung
 		# Hier werden Variablen und ein Array eindeutig deklariert, damit sie korrekt verarbeitet werden können.
@@ -396,7 +398,7 @@ do
 				*) lang_a="($lang_a)" ;; # falls was anderes wie z.B. "pt" => "(pt)"
 			esac
 			echo -e "${YELLOW}Audiospur $i: Sprache = $lang_a${RESET}"
-			if [[ "$bitrate_a" == "N/A" || "$bitrate_a" =~ ^[0-9]+$ ]]; then
+			if [[ "$bitrate_a" == "N/A" ]]; then
 				echo -e "${YELLOW}Variable Bitrate (VBR) erkannt.${RESET}"
 				echo -e "${YELLOW}Spur $i – Kanäle: $channels_a, Bitrate: N/A${RESET}"
 			else
@@ -459,9 +461,10 @@ do
 	fi
 
 ### FFmpeg Hauptbefehl
-	ffmpeg \
+	ffmpeg -re \
 	-ss 00:03:00 \
 	-i "$filename" \
+	-vsync passthrough \
 	"${ff_map_input_subtitle[@]}" \
 	-t 00:00:15 \
 	$ff_preset \
@@ -482,6 +485,7 @@ do
 	$ff_subtitle_metadata_0 \
 	$ff_subtitle_metadata_1 \
 	$ff_subtitle_metadata_2 \
+	-stats \
 	"$new_filename"
 
 
